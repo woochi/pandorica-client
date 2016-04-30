@@ -16,10 +16,6 @@ class CurrentTaskPage extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.props.dispatch(taskActions.fetch());
-  }
-
   render() {
     const {
       fields: {code}

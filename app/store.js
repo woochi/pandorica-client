@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
+import errorReducer from './reducers/errorReducer';
 import taskReducer from './reducers/taskReducer';
 import {reducer as formReducer} from 'redux-form';
 
@@ -11,6 +12,7 @@ const immutableFormReducer = (state = Immutable.fromJS({}), action) => Immutable
 
 const logger = createLogger();
 const reducer = combineReducers({
+  error: errorReducer,
   task: taskReducer,
   form: immutableFormReducer
 });

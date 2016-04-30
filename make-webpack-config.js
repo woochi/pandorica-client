@@ -8,9 +8,9 @@ var autoprefixer = require('autoprefixer');
 module.exports = function (options) {
   var cssLoaderDefinition = "css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]";
 	var loaders = {
-		"jsx": "babel-loader?stage=0",
+		"jsx": "babel-loader",
 		"js": {
-			loader: "babel-loader?stage=0",
+			loader: "babel-loader",
 			include: path.join(__dirname, "app")
 		},
 		"json": "json-loader",

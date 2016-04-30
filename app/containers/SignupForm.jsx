@@ -8,7 +8,7 @@ import Fieldset from 'components/Fieldset';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 import {getFormState} from 'lib/immutableForm';
 
-export const fields = ['name', 'email', 'password', 'alignment'];
+export const fields = ['name', 'email', 'password', 'faction'];
 
 class SignupForm extends React.Component {
   static propTypes = {
@@ -18,7 +18,7 @@ class SignupForm extends React.Component {
 
   render() {
     const {
-      fields: {name, email, password, alignment},
+      fields: {name, email, password, faction},
       handleSubmit
     } = this.props;
 
@@ -28,10 +28,10 @@ class SignupForm extends React.Component {
           <TextField type="text" placeholder="Name" {...name}/>
           <TextField name="email" placeholder="Email" {...email}/>
           <TextField name="password" placeholder="Password" {...password}/>
-          <SelectField name="alignment" {...alignment} onChange={this.handleChange}>
-            <MenuItem value={"neutral"} primaryText="Neutral" />
-            <MenuItem value={"order"} primaryText="Order" />
-            <MenuItem value={"chaos"} primaryText="Chaos" />
+          <SelectField name="faction" {...faction} onChange={this.handleChange}>
+            <MenuItem value={'NEUTRAL'} primaryText="Neutral" />
+            <MenuItem value={'ORDER'} primaryText="Order" />
+            <MenuItem value={'CHAOS'} primaryText="Chaos" />
           </SelectField>
           <RaisedButton primary={true} label="Create account" fullWidth={true} onClick={handleSubmit}/>
         </Fieldset>
@@ -51,7 +51,7 @@ export default reduxForm({
 }, (state) => {
   return {
     initialValues: {
-      alignment: 'neutral'
+      faction: 'NEUTRAL'
     }
   };
 })(SignupForm);

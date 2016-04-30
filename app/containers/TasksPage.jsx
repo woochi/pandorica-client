@@ -26,39 +26,28 @@ class TasksPage extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.props.dispatch(taskActions.fetch());
-  }
-
   render() {
     const {
       fields: {code}
     } = this.props;
     let content;
-    const task = this.props.task.get('data').toJS();
-    if (this.props.task.get('error')) {
-      content = <FetchError/>;
-    } else if (this.props.task.get('loading')) {
-      content = <Center><CircularProgress></CircularProgress></Center>;
-    } else {
-      content = <Center>
-        <Title>{task.name}</Title>
-        <Paragraph>{task.description}</Paragraph>
-        <Fieldset>
-          <TextField hintText="Insert task code" type="text" pattern="\d*" {...code}></TextField>
-          <RaisedButton label="Check code" primary={true} fullWidth={true} onClick={this.checkCode}/>
-        </Fieldset>
-      </Center>;
-    }
-    const currentSlideIndex = this.props.task.getIn(['data', 'completed']) ? 1 : 0;
+    const task = this.props.task;
+    const currentSlideIndex = task.get('completed') ? 1 : 0;
     return (
       <PageSlider index={currentSlideIndex}>
         <Page>
-          {content}
+          <Center>
+            <Title>{task.name}</Title>
+            <Paragraph>{task.description}</Paragraph>
+            <Fieldset>
+              <TextField hintText="Insert task code" type="text" {...code}></TextField>
+              <RaisedButton label="Check code" primary={true} fullWidth={true} onClick={this.checkCode} disabled={task.get('loading')}/>
+            </Fieldset>
+          </Center>
         </Page>
         <Page>
           <Center>
-            <PointDisplay/>
+            <PointDisplay points={task.get('points')}/>
             <Paragraph>You have successfully completed the task!</Paragraph>
             <RaisedButton label="Continue to next task" primary={true} onClick={this.continue}/>
           </Center>
@@ -68,12 +57,12 @@ class TasksPage extends React.Component {
   }
 
   checkCode = (nextIndex) => {
-    this.props.dispatch(taskActions.complete());
+    this.props.dispatch(taskActions.submit());
   }
 
   continue = () => {
     this.props.resetForm();
-    this.props.dispatch(taskActions.fetch());
+    this.props.dispatch(taskActions.ok());
   }
 }
 

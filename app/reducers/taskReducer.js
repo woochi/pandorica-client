@@ -3,17 +3,10 @@ import { createReducer } from 'redux-immutablejs';
 import Immutable from 'immutable';
 
 const initialState = Immutable.fromJS({
-  loading: true,
   error: false,
-  data: {},
-  completed: false
+  completed: false,
+  points: 0
 });
-
-function add(state, action) {
-  return state.merge({
-    data: action.task
-  });
-}
 
 function loadStart(state, action) {
   return state.set('loading', true);
@@ -28,13 +21,20 @@ function loadError(state, action) {
 }
 
 function success(state, action) {
-  return state.set('completed', true);
+  return state.merge({
+    completed: true,
+    points: action.points
+  });
+}
+
+function ok(state, action) {
+  return state.set('completed', false);
 }
 
 export default createReducer(initialState, {
-  [ACTIONS.TASK_ADD]: add,
   [ACTIONS.TASK_LOAD_START]: loadStart,
   [ACTIONS.TASK_LOAD_END]: loadEnd,
   [ACTIONS.TASK_LOAD_ERROR]: loadError,
-  [ACTIONS.TASK_SUCCESS]: success
+  [ACTIONS.TASK_SUCCESS]: success,
+  [ACTIONS.TASK_OK]: ok
 });

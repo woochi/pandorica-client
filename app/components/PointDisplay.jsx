@@ -1,17 +1,18 @@
 import CircularProgress from 'material-ui/lib/circular-progress';
 import styles from './PointDisplay.scss';
 import Counter from 'components/Counter';
+import classnames from 'classnames';
 
 export default class PointDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      completed: 0
+      run: false
     };
   }
 
   componentDidUpdate() {
-    this.timer = setTimeout(() => this.progress(100), 500);
+    this.timer = setTimeout(() => this.run(), 500);
   }
 
   componentWillUnmount() {
@@ -19,18 +20,27 @@ export default class PointDisplay extends React.Component {
   }
 
   render() {
+    const counterClassName = classnames({
+      'invisible': this.props.run,
+      [styles.Counter]: true
+    });
+    const progressClassName = classnames({
+      'invisible': this.props.run,
+      [styles.Progress]: true
+    });
+    const progressValue = this.state.run ? 100: 0;
     return (
       <div className={styles.PointDisplay}>
         <div className={styles.CounterWrapper}>
-          <Counter className={styles.Counter} to={4000} duration={2000} delay={500}/>
+          <Counter className={counterClassName} to={this.props.points} duration={2000} delay={500}/>
         </div>
-        <CircularProgress className={styles.Progress} mode="determinate" value={this.state.completed} size={3}/>
+        <CircularProgress className={progressClassName} mode="determinate" value={progressValue} size={3}/>
         <CircularProgress className={styles.Base} mode="determinate" value={100} size={3}/>
       </div>
     );
   }
 
-  progress = (completed) => {
-    this.setState({completed: completed});
+  run = () => {
+    this.setState({run: true});
   }
 }

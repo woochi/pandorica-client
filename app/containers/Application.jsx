@@ -8,6 +8,9 @@ import styles from "./Application.scss";
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Divider from 'material-ui/lib/divider';
+import {connect} from 'react-redux';
+import Snackbar from 'material-ui/lib/snackbar';
+import {error} from 'actions/errorActions';
 
 export default class Application extends React.Component {
   constructor(props) {
@@ -31,12 +34,30 @@ export default class Application extends React.Component {
           <MenuItem onTouchTap={this.onNavigate.bind(this, 'app/tasks')}>Tasks</MenuItem>
         </LeftNav>
 				{this.props.children}
+        <Snackbar
+          open={this.props.error}
+          message={this.props.error}
+          autoHideDuration={3000}
+          onRequestClose={this.onCloseSnackbar}
+        />
 			</div>
 		);
 	}
+
+  onCloseSnackbar = () => {
+    this.props.dispatch(error(false));
+  }
 
   onNavigate = (path) => {
     this.props.history.push(path);
     this.setState({open: false});
   };
 }
+
+function mapStateToProps(state, props) {
+  return {
+    error: state.get('error')
+  };
+}
+
+export default connect(mapStateToProps)(Application);

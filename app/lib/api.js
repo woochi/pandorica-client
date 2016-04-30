@@ -33,13 +33,15 @@ function checkStatus(response) {
   } else {
     if (response.status === 403) {
       logOut().then(() => {
-        window.history.replaceState({}, '', '/login');
-        window.location = '/login';
+        window.history.replaceState({}, '', '/');
+        window.location = '/';
       });
     }
-    const error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    return new Promise((resolve, reject) => {
+      response.json().then((error) => {
+        reject(error);
+      });
+    });
   }
 }
 

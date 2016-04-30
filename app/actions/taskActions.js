@@ -1,4 +1,5 @@
 import api from 'lib/api';
+import {error} from 'actions/errorActions';
 
 export function add(task) {
   return {
@@ -19,42 +20,6 @@ export function loadEnd() {
   }
 }
 
-export function loadError(error) {
-  return {
-    type: 'TASK_LOAD_ERROR',
-    error
-  }
-}
-
-export function fetch() {
-  return function(dispatch, getState) {
-    dispatch(loadStart());
-    api.get('/tasks')
-      .then((task) => {
-        console.log('DONE', task);
-        dispatch(add(task))
-        dispatch(loadEnd());
-      })
-      .catch((error) => {
-        console.log('ERROR 2');
-        dispatch(loadError(error))
-      });
-  }
-}
-
-export function skip() {
-  return function(dispatch, getState) {
-    dispatch(loadStart());
-    api.destroy('/tasks')
-      .then((nextTask) => {
-        dispatch(add(nextTask));
-        dispatch(loadEnd());
-      }).catch((err) => {
-        dispatch(loadError());
-      });
-  }
-}
-
 export function success(points) {
   return {
     type: 'TASK_SUCCESS',
@@ -62,19 +27,25 @@ export function success(points) {
   };
 }
 
-export function complete() {
+export function ok() {
+  return {
+    type: 'TASK_OK'
+  };
+}
+
+export function submit() {
   return function(dispatch, getState) {
     const state = getState();
-    const taskId = state.getIn(['task', 'data', '_id']);
     const code = state.getIn(['form', 'task', 'code', 'value']);
-    if (!!code && !!taskId) {
+    if (!!code) {
       dispatch(loadStart());
-      api.post(`/tasks/${taskId}`, {code: code})
+      api.post(`/me/tasks`, {code: code})
         .then((response) => {
-          dispatch(add(response));
+          dispatch(success(response.points));
           dispatch(loadEnd());
         })
         .catch((err) => {
+          dispatch(error(err));
           dispatch(loadEnd());
         });
     }

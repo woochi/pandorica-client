@@ -21,7 +21,7 @@ class SignupPage extends React.Component {
     );
   }
 
-  onSubmit = (values) => {
+  onSubmit(values) {
     return api.signUp(values).then((response) => {
       this.props.history.replace('/');
     }).catch((error) => {
