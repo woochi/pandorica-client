@@ -8,8 +8,6 @@ import PointDisplay from 'components/PointDisplay';
 import Center from 'components/Center';
 import { connect } from 'react-redux';
 import * as taskActions from 'actions/taskActions';
-import FetchError from 'components/FetchError';
-import CircularProgress from 'material-ui/lib/circular-progress';
 import Title from 'components/Title';
 import Fieldset from 'components/Fieldset';
 import FooterLink from 'components/FooterLink';
