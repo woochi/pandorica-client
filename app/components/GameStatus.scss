@@ -1,0 +1,19 @@
+:local(.this) {
+  position: relative;
+}
+
+:local(.chaosProgress) {
+  circle {
+    stroke: red !important;
+  }
+}
+
+:local(.orderProgress) {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  circle {
+    stroke: #00bcd4 !important;
+  }
+}

@@ -1,27 +1,42 @@
 import React from "react";
 import { RouteHandler } from "react-router";
-import MainMenu from "components/MainMenu";
-
-import styles from "./Application.css";
+import LeftNav from 'material-ui/lib/left-nav';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import { Link, browserHistory } from 'react-router';
+import Avatar from 'material-ui/lib/avatar';
+import styles from "./Application.scss";
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
+import Divider from 'material-ui/lib/divider';
 
 export default class Application extends React.Component {
-	static getProps(stores, params) {
-		var transition = stores.Router.getItem("transition");
-		return {
-			loading: !!transition
-		};
-	}
-	render() {
-		var { loading } = this.props;
-		return <div className={styles.this + (loading ? " " + styles.loading : "")}>
-			<div className={styles.loadingElement}>loading...</div>
-			<h1>react-starter</h1>
-			<MainMenu />
-			<RouteHandler />
-		</div>;
-	}
-}
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
+  }
 
-Application.contextTypes = {
-	stores: React.PropTypes.object
-};
+	render() {
+		return (
+			<div className={styles.this}>
+        <LeftNav
+          docked={false}
+          width={300}
+          swipeAreaWidth={null}
+          open={this.state.open}
+          onRequestChange={open => this.setState({open})}>
+          <List><ListItem leftAvatar={<Avatar/>} primaryText="Mikko" disabled={true}></ListItem></List>
+          <Divider/>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, 'app/notifications')}>Notifications</MenuItem>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, 'app/home')}>Leaderboard</MenuItem>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, 'app/tasks')}>Tasks</MenuItem>
+        </LeftNav>
+				{this.props.children}
+			</div>
+		);
+	}
+
+  onNavigate = (path) => {
+    this.props.history.push(path);
+    this.setState({open: false});
+  };
+}

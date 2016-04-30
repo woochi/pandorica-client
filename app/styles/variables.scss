@@ -1,0 +1,29 @@
+$black: #000;
+$white: #FFF;
+$grey: #a0a0a0;
+
+$green5: #53CB7B;
+$green6: darken($green5, 10%);
+$green7: darken($green5, 20%);
+
+$green: $green5;
+$cyan: #00bcd4;
+
+$grey1: rgba($black, 0.1);
+$grey2: rgba($black, 0.2);
+$grey3: rgba($black, 0.3);
+$grey4: rgba($black, 0.4);
+$grey5: rgba($black, 0.5);
+$grey6: rgba($black, 0.6);
+$grey7: rgba($black, 0.7);
+$grey8: rgba($black, 0.8);
+$grey9: rgba($black, 0.9);
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 500;
+
+$base-font-size: 16px;
+$base-line-height: 20px;
+$base-font-weight: $font-weight-normal;
+$base-font-family: Roboto, Helvetica, Arial, sans-serif;

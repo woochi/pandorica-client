@@ -1,0 +1,23 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+:local(.FooterLinkWrapper) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: rhythm(2);
+  text-align: center;
+}
+
+:local(.FooterLink) {
+  color: $grey5;
+  text-decoration: none;
+
+  &:hover {
+    color: $grey6;
+  }
+
+  &:active {
+    color: $grey7;
+  }
+}
