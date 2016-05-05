@@ -11,6 +11,7 @@ import Loader from 'components/Loader';
 
 class TaskSuccessPage extends React.Component {
   componentWillMount() {
+    console.log(this.props);
     if (!this.props.task) {
       this.props.router.push('/app/notifications');
     }
@@ -31,7 +32,8 @@ class TaskSuccessPage extends React.Component {
   }
 
   continue = () => {
-    this.props.router.push('/app/notifications/');
+    const nextPathname = _.get(this.props, ['location', 'state', 'nextPathName']) || '/app/notifications';
+    this.props.router.push(nextPathname);
   }
 }
 

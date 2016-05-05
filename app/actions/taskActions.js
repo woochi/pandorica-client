@@ -58,10 +58,12 @@ export function submit(code) {
         .then((response) => {
           dispatch(success(response));
           dispatch(loadEnd());
+          return response;
         })
         .catch((err) => {
           dispatch(error(err));
           dispatch(loadEnd());
+          throw err;
         });
     }
   }

@@ -13,54 +13,38 @@ import Fieldset from 'components/Fieldset';
 import FooterLink from 'components/FooterLink';
 import {getFormState} from 'lib/immutableForm';
 import {reduxForm} from 'redux-form';
+import {withRouter} from 'react-router';
 
 const fields = ['code'];
 
 class TasksPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      slideIndex: 0
-    };
-  }
-
   render() {
     const {
       fields: {code}
     } = this.props;
     let content;
     const task = this.props.task;
-    const currentSlideIndex = task.get('completed') ? 1 : 0;
     return (
-      <PageSlider index={currentSlideIndex}>
-        <Page>
-          <Center>
-            <Title>{task.name}</Title>
-            <Paragraph>{task.description}</Paragraph>
-            <Fieldset>
-              <TextField hintText="Insert task code" type="text" {...code}></TextField>
-              <RaisedButton label="Check code" primary={true} fullWidth={true} onClick={this.checkCode} disabled={task.get('loading')}/>
-            </Fieldset>
-          </Center>
-        </Page>
-        <Page>
-          <Center>
-            <PointDisplay points={task.get('points')}/>
-            <Paragraph>You have successfully completed the task!</Paragraph>
-            <RaisedButton label="Continue to next task" primary={true} onClick={this.continue}/>
-          </Center>
-        </Page>
-      </PageSlider>
+      <Page>
+        <Center>
+          <Title>{task.name}</Title>
+          <Paragraph>{task.description}</Paragraph>
+          <Fieldset>
+            <TextField hintText="Insert task code" type="text" {...code}></TextField>
+            <RaisedButton label="Check code" primary={true} fullWidth={true} onClick={this.checkCode} disabled={task.get('loading')}/>
+          </Fieldset>
+        </Center>
+      </Page>
     );
   }
 
   checkCode = () => {
-    this.props.dispatch(taskActions.submit(this.props.fields.code.value));
-  }
-
-  continue = () => {
-    this.props.resetForm();
-    this.props.dispatch(taskActions.ok());
+    this.props.dispatch(taskActions.submit(this.props.fields.code.value)).then((task) => {
+      this.props.router.push({
+        pathname: `/app/tasks/${task._id}/success`,
+        state: {nextPathName: '/app/tasks'}
+      });
+    });
   }
 }
 
@@ -74,4 +58,4 @@ export default connect(mapStateToProps)(reduxForm({
   form: 'task',
   fields,
   getFormState
-})(TasksPage));
+})(withRouter(TasksPage)));

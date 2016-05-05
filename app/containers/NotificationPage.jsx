@@ -44,6 +44,7 @@ class NotificationPage extends React.Component {
 
   checkCode = (code) => {
     this.props.dispatch(taskActions.submit(code)).then(() => {
+      console.log('THEN');
       this.props.router.push(`/app/tasks/${this.props.notification.task._id}/success`);
     });
   }
