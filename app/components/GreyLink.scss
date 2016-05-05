@@ -1,0 +1,16 @@
+@import 'variables';
+
+:local {
+  .GreyLink {
+    color: $grey5;
+    text-decoration: none;
+
+    &:hover {
+      color: $grey6;
+    }
+
+    &:active {
+      color: $grey7;
+    }
+  }
+}

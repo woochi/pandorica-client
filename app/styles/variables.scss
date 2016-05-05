@@ -9,6 +9,8 @@ $green7: darken($green5, 20%);
 $green: $green5;
 $cyan: #00bcd4;
 
+$white5: rgba($white, 0.5);
+
 $grey1: rgba($black, 0.1);
 $grey2: rgba($black, 0.2);
 $grey3: rgba($black, 0.3);
@@ -26,4 +28,6 @@ $font-weight-bold: 500;
 $base-font-size: 16px;
 $base-line-height: 20px;
 $base-font-weight: $font-weight-normal;
-$base-font-family: Roboto, Helvetica, Arial, sans-serif;
+$base-font-family: -apple-system, Roboto, Helvetica, Arial, sans-serif;
+
+$base-font-color: $grey8;

@@ -9,13 +9,15 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import FastClick from 'fastclick';
 
 import Site from 'containers/Site';
-import Application from 'containers/Application'
-import HomePage from 'containers/HomePage'
+import Application from 'containers/Application';
+import HomePage from 'containers/HomePage';
 import TasksPage from 'containers/TasksPage';
 import NotificationsPage from 'containers/NotificationsPage';
-import NotFoundPage from 'containers/NotFoundPage'
+import NotFoundPage from 'containers/NotFoundPage';
 import LoginPage from 'containers/LoginPage';
 import SignupPage from 'containers/SignupPage';
+import NotificationPage from 'containers/NotificationPage';
+import TaskSuccessPage from 'containers/TaskSuccessPage';
 
 import 'styles/common.scss';
 
@@ -28,7 +30,22 @@ FastClick.attach(document.body);
 
 function requireAuth(nextState, replace) {
   if (!api.isLoggedIn()) {
-    replace({}, '/login');
+    replace({
+      pathname: '/',
+      state: { nextPathname: nextState.location.pathname }
+    });
+  }
+}
+
+function checkAuth(nextState, replace) {
+  if (api.isLoggedIn()) {
+    replace('/app');
+  }
+}
+
+function test(nextState, replace) {
+  if (!store.getState().getIn(['tasks', 'entities', nextState.params.id])) {
+    replace('/app/notifications');
   }
 }
 
@@ -37,13 +54,15 @@ render((
     <Router history={browserHistory}>
       <Route path="/" component={Site}>
         <IndexRedirect to="login"/>
-        <Route path="login" component={LoginPage}/>
-        <Route path="signup" component={SignupPage}/>
+        <Route path="login" onEnter={checkAuth} component={LoginPage}/>
+        <Route path="signup" onEnter={checkAuth} component={SignupPage}/>
         <Route path="app" component={Application} onEnter={requireAuth}>
           <IndexRedirect to="home"/>
-          <Route name="home" path="home" component={HomePage} />
-          <Route name="notifications" path="notifications" component={NotificationsPage}/>
-          <Route name="tasks" path="tasks" component={TasksPage}/>
+          <Route path="home" component={HomePage}/>
+          <Route path="notifications" component={NotificationsPage}/>
+          <Route path="notifications/:id" component={NotificationPage}/>
+          <Route path="tasks" component={TasksPage}/>
+          <Route path="tasks/:id/success" component={TaskSuccessPage} onEnter={test}/>
         </Route>
         <Route path="*" component={NotFoundPage} />
       </Route>

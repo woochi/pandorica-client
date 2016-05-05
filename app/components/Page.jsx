@@ -5,7 +5,7 @@ export class Page extends React.Component {
   render() {
     const className = classnames(styles.Page, this.props.className);
     return (
-      <div className={className}>{this.props.children}</div>
+      <div className={className} {...this.props}>{this.props.children}</div>
     );
   }
 };

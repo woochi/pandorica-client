@@ -8,7 +8,7 @@ class Loader extends React.Component {
 
   renderContent() {
     if (this.props.loading) {
-      return <Center><CircularProgress></CircularProgress></Center>;
+      return (<Center><CircularProgress/></Center>);
     } else {
       return this.props.children;
     }

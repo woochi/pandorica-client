@@ -11,8 +11,10 @@ export default class PointDisplay extends React.Component {
     };
   }
 
-  componentDidUpdate() {
-    this.timer = setTimeout(() => this.run(), 500);
+  componentDidMount() {
+    this.timer = setTimeout(() => {
+      this.run()
+    }, 500);
   }
 
   componentWillUnmount() {

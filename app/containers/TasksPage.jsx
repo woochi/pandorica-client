@@ -54,8 +54,8 @@ class TasksPage extends React.Component {
     );
   }
 
-  checkCode = (nextIndex) => {
-    this.props.dispatch(taskActions.submit());
+  checkCode = () => {
+    this.props.dispatch(taskActions.submit(this.props.fields.code.value));
   }
 
   continue = () => {

@@ -4,6 +4,7 @@ var CommonsPlugin = new require("webpack/lib/optimize/CommonsChunkPlugin")
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var loadersByExtension = require("./config/loadersByExtension");
 var autoprefixer = require('autoprefixer');
+var _ = require('lodash');
 
 module.exports = function (options) {
   var cssLoaderDefinition = "css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]";
@@ -25,7 +26,7 @@ module.exports = function (options) {
 		"md|markdown": ["html-loader", "markdown-loader"]
 	};
 
-  var config = {
+  var config = _.extend({
   	module: {
   		loaders: loadersByExtension(loaders).concat([
         {
@@ -62,7 +63,7 @@ module.exports = function (options) {
     sassLoader: {
       includePaths: [path.resolve(__dirname, './app/styles')]
     }
-	};
+	}, options);
 
   return config;
 };

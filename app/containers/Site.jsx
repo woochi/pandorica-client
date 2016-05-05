@@ -8,7 +8,7 @@ class Site extends React.Component {
   }
 
   render() {
-    return <Page>{this.props.children}</Page>;
+    return this.props.children;
   }
 }
 

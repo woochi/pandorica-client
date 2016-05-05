@@ -1,6 +1,7 @@
 @import 'variables';
+@import 'vertical-rhythm';
 
 :local(.Paragraph) {
   text-align: center;
-  margin: 20px 10%;
+  margin: rhythm(1) 0;
 }

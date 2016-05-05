@@ -33,3 +33,16 @@ export function fetch() {
       });
   };
 }
+
+export function get(id) {
+  return function(dispatch, getState) {
+    dispatch(loadStart());
+    api.get(`/notifications/${id}`)
+      .then((response) => {
+        dispatch(success(response));
+      })
+      .catch((response) => {
+        dispatch(error(response));
+      });
+  }
+}

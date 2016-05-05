@@ -20,10 +20,10 @@ export function loadEnd() {
   }
 }
 
-export function success(points) {
+export function success(task) {
   return {
     type: 'TASK_SUCCESS',
-    points
+    task
   };
 }
 
@@ -33,15 +33,30 @@ export function ok() {
   };
 }
 
-export function submit() {
+export function get(id) {
+  return function(dispatch, getState) {
+    dispatch(loadStart());
+    return api.get(`/tasks/${id}`)
+      .then((response) => {
+        dispatch(success(response));
+      })
+      .catch((err) => {
+        dispatch(error(err));
+      })
+      .then(() => {
+        dispatch(loadEnd());
+      });
+  }
+}
+
+export function submit(code) {
   return function(dispatch, getState) {
     const state = getState();
-    const code = state.getIn(['form', 'task', 'code', 'value']);
     if (!!code) {
       dispatch(loadStart());
-      api.post(`/me/tasks`, {code: code})
+      return api.post(`/me/tasks`, {code: code})
         .then((response) => {
-          dispatch(success(response.points));
+          dispatch(success(response));
           dispatch(loadEnd());
         })
         .catch((err) => {

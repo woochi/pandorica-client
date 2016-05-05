@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import styles from './FooterLink.scss';
+import GreyLink from 'components/GreyLink';
 
 class FooterLink extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class FooterLink extends React.Component {
   render() {
     return (
       <div className={styles.FooterLinkWrapper}>
-        <Link {...this.props} className={styles.FooterLink}>{this.props.children}</Link>
+        <GreyLink {...this.props}>{this.props.children}</GreyLink>
       </div>
     );
   }

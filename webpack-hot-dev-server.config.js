@@ -2,5 +2,8 @@ module.exports = require("./make-webpack-config")({
 	devServer: true,
 	hotComponents: true,
 	devtool: "eval",
-	debug: true
+	debug: true,
+  devServer: {
+    historyApiFallback: true
+  }
 });

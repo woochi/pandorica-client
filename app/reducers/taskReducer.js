@@ -23,7 +23,7 @@ function loadError(state, action) {
 function success(state, action) {
   return state.merge({
     completed: true,
-    points: action.points
+    points: action.task.points
   });
 }
 

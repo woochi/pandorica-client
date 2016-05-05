@@ -1,8 +1,22 @@
-:local(.Center) {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+@import 'vertical-rhythm';
+
+:local {
+  .Center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .CenterPadding {
+    padding: 10%;
+  }
+
+  .CenterContent {
+    max-width: rhythm(16);
+  }
 }

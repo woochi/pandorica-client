@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {NOTIFICATION_TYPES} from 'enums';
 import Placeholder from 'components/Placeholder';
 import Loader from 'components/Loader';
+import {withRouter} from 'react-router';
 
 const primaryTextForNotificationType = {
   [NOTIFICATION_TYPES.TASK]: 'New Task'
@@ -39,10 +40,10 @@ class NotificationsPage extends React.Component {
       notification = notifications[i];
       items.push(<ListItem
         key={notification._id}
-        disabled={true}
         leftAvatar={<Avatar/>}
-        primaryText={`${primaryTextForNotificationType[notification.type]} - ${notification.title}`}
-        secondaryText={notification.message}>
+        primaryText={`${primaryTextForNotificationType[notification.type]}: ${notification.title}`}
+        secondaryText={notification.message}
+        onClick={this.openNotification.bind(this, notification)}>
       </ListItem>);
       items.push(<Divider key={i} inset={true}/>);
     }
@@ -51,6 +52,11 @@ class NotificationsPage extends React.Component {
         <Loader loading={this.props.loading}>{renderContent(items)}</Loader>
       </Page>
     )
+  }
+
+  openNotification(notification) {
+    console.log(notification);
+    this.props.router.push(`/app/notifications/${notification._id}`);
   }
 }
 
@@ -61,4 +67,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(NotificationsPage);
+export default connect(mapStateToProps)(withRouter(NotificationsPage));
