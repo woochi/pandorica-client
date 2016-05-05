@@ -1,7 +1,8 @@
 import 'whatwg-fetch';
 import _ from 'lodash';
 
-const API_URL = 'http://192.168.0.228:8081'
+const host = window.location.host.split(':')[0];
+const API_URL = `http://${host}:35005`;
 
 function formatOptions(options) {
   var defaults = {
