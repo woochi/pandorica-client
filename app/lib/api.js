@@ -1,8 +1,18 @@
 import 'whatwg-fetch';
 import _ from 'lodash';
 
-const host = window.location.host.split(':')[0];
-const API_URL = `http://${host}:35005`;
+function getAPIUrl() {
+  const host = window.location.host.split(':')[0];
+  if (host === 'app.ropecon.fi') {
+    return 'http://api.ropecon.fi';
+  } else {
+    return 'http://${host}:35005'
+  }
+}
+
+const API_URL = getAPIUrl();
+
+console.log(API_URL);
 
 function formatOptions(options) {
   var defaults = {
