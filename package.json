@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "start": "webpack-dev-server --config webpack-dev-server.config.js --colors --host 192.168.0.228 --port 8080 --inline",
+    "start": "webpack-dev-server --config webpack-dev-server.config.js --colors --host 0.0.0.0 --port 8080 --inline",
     "hot-dev-server": "webpack-dev-server --config webpack-hot-dev-server.config.js --hot --colors --host 0.0.0.0 --port 8080",
     "build": "webpack --config webpack-production.config.js --progress --profile --colors"
   },
@@ -24,7 +24,9 @@
     "babel-preset-stage-2": "^6.5.0",
     "classnames": "^2.2.3",
     "ease-component": "^1.0.0",
+    "extract-text-webpack-plugin": "^0.8.2",
     "fastclick": "^1.0.6",
+    "html-webpack-plugin": "^2.16.1",
     "immutable": "^3.7.6",
     "ismobilejs": "^0.4.0",
     "markdown-loader": "^0.1.2",
@@ -62,7 +64,6 @@
     "escape-string-regexp": "^1.0.5",
     "eslint": "^0.22.0",
     "eslint-plugin-react": "^2.2.0",
-    "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.5",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
