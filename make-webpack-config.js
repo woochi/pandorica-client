@@ -41,6 +41,7 @@ module.exports = function (options) {
 	  },
 	  output: {
 	    path: path.resolve(__dirname, "build"),
+      publicPath: "/assets/",
 	    filename: "bundle.js"
 	  },
     resolve: {
