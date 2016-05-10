@@ -1,9 +1,9 @@
 import React from 'react';
-import {Page, PageSlider} from 'components/page';
+import {Page, PageSlider} from 'components/Page';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 import SwipeableViews from 'react-swipeable-views';
-import Paragraph from 'components/paragraph';
+import Paragraph from 'components/Paragraph';
 import PointDisplay from 'components/PointDisplay';
 import Center from 'components/Center';
 import { connect } from 'react-redux';

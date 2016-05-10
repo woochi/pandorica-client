@@ -45,7 +45,7 @@ module.exports = function (options) {
 	  },
     resolve: {
       root: [
-        path.resolve('./app')
+        path.resolve(__dirname, 'app')
       ],
       extensions: ['', '.js', '.jsx']
     },

@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import Center from 'components/Center';
-import Paragraph from 'components/paragraph';
+import Paragraph from 'components/Paragraph';
 import PointDisplay from 'components/PointDisplay';
 import Title from 'components/Title';
 import RaisedButton from 'material-ui/lib/raised-button';

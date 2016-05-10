@@ -1,5 +1,5 @@
 import styles from './Fieldset.scss';
-import Field from 'components/field';
+import Field from 'components/Field';
 
 class Fieldset extends React.Component {
   render() {
