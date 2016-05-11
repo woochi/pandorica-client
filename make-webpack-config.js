@@ -7,6 +7,25 @@ var loadersByExtension = require("./config/loadersByExtension");
 var autoprefixer = require('autoprefixer');
 var _ = require('lodash');
 
+var plugins = [
+  new webpack.ProvidePlugin({
+    'React': 'react',
+    'ReactDOM': 'react-dom'
+  }),
+  new ExtractTextPlugin("[name].css", {allChunks: true}),
+  new HtmlWebpackPlugin({
+    template: 'index.html', // Load a custom template
+    inject: 'body' // Inject all scripts into the body
+  })
+];
+
+if (process.env.NODE_ENV === 'production') {
+  plugins = plugins.concat([
+    new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
+    new webpack.optimize.OccurrenceOrderPlugin(true)
+  ]);
+}
+
 module.exports = function (options) {
   var cssLoaderDefinition = "css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]";
 	var loaders = {
@@ -50,17 +69,7 @@ module.exports = function (options) {
       ],
       extensions: ['', '.js', '.jsx']
     },
-    plugins: [
-      new webpack.ProvidePlugin({
-        'React': 'react',
-        'ReactDOM': 'react-dom'
-      }),
-      new ExtractTextPlugin("[name].css", {allChunks: true}),
-      new HtmlWebpackPlugin({
-        template: 'index.html', // Load a custom template
-        inject: 'body' // Inject all scripts into the body
-      })
-    ],
+    plugins: plugins,
     postcss: function() {
       return [autoprefixer];
     },
