@@ -6,7 +6,7 @@ function getAPIUrl() {
   if (host === 'app.ropecon.fi') {
     return 'http://api.ropecon.fi';
   } else {
-    return 'http://${host}:35005'
+    return `http://${host}:35005`;
   }
 }
 
