@@ -3,6 +3,5 @@ module.exports = require("./make-webpack-config")({
 	prerender: true,
 	longTermCaching: true,
 	separateStylesheet: true,
-	minimize: true
 	// devtool: "source-map"
 });

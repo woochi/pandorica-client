@@ -1,0 +1,15 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+:local {
+  .HeroTitle {
+    @include font-size(24px, 1.5);
+    margin: rhythm(1) 0;
+  }
+
+  @media #{$medium-up} {
+    .HeroTitle {
+      @include font-size(46px, 2.5);
+    }
+  }
+}

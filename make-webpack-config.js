@@ -14,7 +14,8 @@ var plugins = [
   }),
   new ExtractTextPlugin("[name].css", {allChunks: true}),
   new HtmlWebpackPlugin({
-    template: 'index.html', // Load a custom template
+    cache: false,
+    template: path.join(__dirname, 'index.html'), // Load a custom template
     inject: 'body' // Inject all scripts into the body
   })
 ];

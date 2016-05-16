@@ -4,6 +4,7 @@ import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Fieldset from 'components/Fieldset';
 import {getFormState} from 'lib/immutableForm';
+import PrimaryButton from 'components/PrimaryButton';
 
 export const fields = ['email', 'password'];
 
@@ -22,12 +23,16 @@ class LoginForm extends React.Component {
     return (
       <form>
         <Fieldset>
-          <TextField type="email" hintText="Email" {...email}/>
-          <TextField type="password" hintText="Password" {...password}/>
-          <RaisedButton primary={true} label="Log in" fullWidth={true} onClick={handleSubmit}/>
+          <TextField ref="email" type="email" hintText="Email" fullWidth={true} {...email}/>
+          <TextField type="password" hintText="Password" fullWidth={true} {...password}/>
         </Fieldset>
+        <PrimaryButton onClick={handleSubmit}>Log in</PrimaryButton>
       </form>
     )
+  }
+
+  componentDidMount() {
+    this.refs.email.focus();
   }
 }
 

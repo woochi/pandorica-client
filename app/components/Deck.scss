@@ -1,0 +1,14 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+:local {
+  .Deck {
+    display: flex;
+  }
+
+  @media #{$medium-up} {
+    .Deck {
+      margin: rhythm(2) 0;
+    }
+  }
+}

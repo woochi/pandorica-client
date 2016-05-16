@@ -1,0 +1,31 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+:local {
+  .PrimaryButton {
+    transition: all 0.2s ease-out;
+    @include font-size(12px);
+    width: 100%;
+    min-width: rhythm(8);
+    cursor: pointer;
+    display: inline-block;
+    padding: rhythm(0.5, $offset: 1px) rhythm(1, $offset: 1px);
+    border: 1px solid $white;
+    background: $white;
+    color: $grey5;
+    box-shadow: 0 2px 2px rgba($black, 0.2);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1px;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba($black, 0.4);
+    }
+  }
+
+  @media #{$medium-up} {
+    .PrimaryButton {
+      width: auto;
+    }
+  }
+}

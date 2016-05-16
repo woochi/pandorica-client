@@ -3,5 +3,7 @@
 
 :local(.Paragraph) {
   text-align: center;
-  margin: rhythm(1) 0;
+  margin: rhythm(1) auto;
+  color: rgba($white, 0.8);
+  max-width: rhythm(28);
 }

@@ -1,0 +1,43 @@
+@import 'vertical-rhythm';
+
+:local {
+  .Logo {
+    width: rhythm(2);
+    margin: rhythm(1) auto;
+  }
+}
+
+$base-transition-duration: 0.4s;
+
+.fade {
+  &-enter {
+    transition: opacity $base-transition-duration ease-out;
+    opacity: 0;
+
+    &-active {
+      opacity: 1;
+    }
+  }
+
+  &-leave {
+    transition: opacity $base-transition-duration ease-out;
+    opacity: 1;
+
+    &-active {
+      opacity: 0;
+    }
+  }
+}
+
+.logo {
+  &-appear {
+    transition: all $base-transition-duration 0.5s ease-out;
+    opacity: 0.01;
+    transform: rotate(50deg) scale(0.8);
+
+    &-active {
+      opacity: 1;
+      transform: rotate(0deg) scale(1.0);
+    }
+  }
+}

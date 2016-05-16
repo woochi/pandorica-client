@@ -7,16 +7,20 @@ import { browserHistory } from 'react-router'
 import {PropTypes} from 'react';
 import FooterLink from 'components/FooterLink';
 import Center from 'components/Center';
+import Subtitle from 'components/Subtitle';
+import Logo from 'components/Logo';
 
 class SignupPage extends React.Component {
   render() {
     return (
       <Page>
         <Center>
-          <Title>Create an account</Title>
+          <Logo/>
+          <Title>Finishing touches</Title>
+          <Subtitle>Your email will only be used for identification. It will not be visible to other users or staff.</Subtitle>
           <SignupForm onSubmit={this.onSubmit}></SignupForm>
         </Center>
-        <FooterLink to="login">Already have an account?</FooterLink>
+        <FooterLink to="/login">Already have an account?</FooterLink>
       </Page>
     );
   }

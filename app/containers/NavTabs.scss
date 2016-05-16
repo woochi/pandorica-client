@@ -1,0 +1,24 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+:local {
+  .NavTabs {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    z-index: 90;
+    width: 100%;
+    height: rhythm(2.5);
+    background: #fafafa;
+    border-top: 1px solid $grey1;
+    align-items: center;
+    justify-content: stretch;
+  }
+
+  .NavTab {
+    @include font-size(12px);
+    flex: 1 1 auto;
+    text-align: center;
+    color: $grey4;
+  }
+}

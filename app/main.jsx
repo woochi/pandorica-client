@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, NotFoundRoute, Link, browserHistory, IndexRedirect } from 'react-router';
+import { Router, Route, IndexRoute, NotFoundRoute, Link, browserHistory, IndexRedirect, IndexPath } from 'react-router';
 import Socket from 'socket.io-client';
 import store from './store';
 import api from 'lib/api';
@@ -18,6 +18,8 @@ import LoginPage from 'containers/LoginPage';
 import SignupPage from 'containers/SignupPage';
 import NotificationPage from 'containers/NotificationPage';
 import TaskSuccessPage from 'containers/TaskSuccessPage';
+import IntroPage from 'containers/IntroPage';
+import FactionSelectPage from 'containers/FactionSelectPage';
 
 import 'styles/common.scss';
 
@@ -49,13 +51,23 @@ function test(nextState, replace) {
   }
 }
 
+function checkFactionSelected(nextState, replace) {
+  if (!store.getState().getIn(['form', 'signup', 'faction', 'value'])) {
+    replace('/signup/faction');
+  }
+}
+
 render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Site}>
-        <IndexRedirect to="login"/>
+        <IndexRoute component={IntroPage}/>
         <Route path="login" onEnter={checkAuth} component={LoginPage}/>
-        <Route path="signup" onEnter={checkAuth} component={SignupPage}/>
+        <Route path="signup" onEnter={checkAuth}>
+          <IndexRedirect to="faction"/>
+          <Route path="faction" component={FactionSelectPage}/>
+          <Route path="complete" component={SignupPage} onEnter={checkFactionSelected}/>
+        </Route>
         <Route path="app" component={Application} onEnter={requireAuth}>
           <IndexRedirect to="home"/>
           <Route path="home" component={HomePage}/>

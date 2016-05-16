@@ -1,0 +1,49 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+:local {
+  .Card {
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    position: relative;
+    margin: 0 auto;
+    width: rhythm(14);
+    height: rhythm(20);
+  }
+
+  .CardSelected {
+    box-shadow: 0 6px 14px rgba($black, 0.2);
+    background: $white;
+
+    .CardTitle, .CardSubtitle {
+      color: $grey9;
+    }
+  }
+
+  .CardImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+  }
+
+  .CardFooter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: rhythm(0.5) rhythm(2);
+  }
+
+  .CardTitle {
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    font-weight: $font-weight-normal
+  }
+
+  .CardSubtitle {
+    @include font-size(14px);
+  }
+}

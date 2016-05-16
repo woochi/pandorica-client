@@ -20,7 +20,7 @@ class NotificationPage extends React.Component {
   render() {
     return (
       <Page>
-        <Loader loading={this.props.notification.loading}>
+        <Loader loading={this.props.loading}>
           <Center>
             <Title>{this.props.notification.title}</Title>
             <Paragraph>{this.props.notification.message}</Paragraph>
@@ -44,7 +44,6 @@ class NotificationPage extends React.Component {
 
   checkCode = (code) => {
     this.props.dispatch(taskActions.submit(code)).then(() => {
-      console.log('THEN');
       this.props.router.push(`/app/tasks/${this.props.notification.task._id}/success`);
     });
   }
@@ -53,7 +52,7 @@ class NotificationPage extends React.Component {
 function mapStateToProps(state) {
   const notification = state.getIn(['notifications', 'data']).toJS();
   return {
-    loading: state.get('notifications').loading,
+    loading: !notification,
     notification: notification
   };
 }

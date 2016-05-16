@@ -1,14 +1,16 @@
 import React from 'react';
 import Page from 'components/Page';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Site extends React.Component {
-  constructor(props) {
-    super(props);
-    this.displayName = 'Site';
-  }
-
   render() {
-    return this.props.children;
+    return (
+      <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={1500} transitionLeaveTimeout={1500}>
+        {React.cloneElement(this.props.children, {
+          key: this.props.location.pathname
+        })}
+      </ReactCSSTransitionGroup>
+    );
   }
 }
 

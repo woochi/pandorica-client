@@ -7,8 +7,9 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import Fieldset from 'components/Fieldset';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 import {getFormState} from 'lib/immutableForm';
+import PrimaryButton from 'components/PrimaryButton';
 
-export const fields = ['name', 'email', 'password', 'faction'];
+export const fields = ['name', 'email', 'password'];
 
 class SignupForm extends React.Component {
   static propTypes = {
@@ -18,40 +19,34 @@ class SignupForm extends React.Component {
 
   render() {
     const {
-      fields: {name, email, password, faction},
+      fields: {name, email, password},
       handleSubmit
     } = this.props;
 
     return (
       <form>
         <Fieldset>
-          <TextField type="text" placeholder="Name" {...name}/>
-          <TextField name="email" placeholder="Email" {...email}/>
-          <TextField name="password" placeholder="Password" {...password}/>
-          <SelectField name="faction" {...faction} onChange={this.handleChange}>
-            <MenuItem value={'NEUTRAL'} primaryText="Neutral" />
-            <MenuItem value={'ORDER'} primaryText="Order" />
-            <MenuItem value={'CHAOS'} primaryText="Chaos" />
-          </SelectField>
-          <RaisedButton primary={true} label="Create account" fullWidth={true} onClick={handleSubmit}/>
+          <TextField ref="name" type="text" hintText="Username" fullWidth={true} {...name}/>
+          <TextField type="email" hintText="Email" fullWidth={true} {...email}/>
+          <TextField type="password" hintText="Password" fullWidth={true} {...password}/>
         </Fieldset>
+        <PrimaryButton onClick={this.props.handleSubmit}>Join the fight!</PrimaryButton>
       </form>
     );
   }
 
+  componentDidMount() {
+    this.refs.name.focus();
+  }
+
   handleChange = (event, index, value) => {
-    this.props.fields.alignment.onChange(value);
+    this.props.fields.faction.onChange(value);
   }
 }
 
 export default reduxForm({
   form: 'signup',
   fields,
-  getFormState
-}, (state) => {
-  return {
-    initialValues: {
-      faction: 'NEUTRAL'
-    }
-  };
+  getFormState,
+  destroyOnUnmount: false
 })(SignupForm);

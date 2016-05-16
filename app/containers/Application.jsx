@@ -13,6 +13,10 @@ import Snackbar from 'material-ui/lib/snackbar';
 import {error} from 'actions/errorActions';
 import MobileDetect from 'mobile-detect';
 import Page from 'components/Page';
+import NavTabs from 'containers/NavTabs';
+import Tabs from 'material-ui/lib/tabs/tabs';
+import Tab from 'material-ui/lib/tabs/tab';
+import FontIcon from 'material-ui/lib/font-icon';
 
 const md = new MobileDetect(window.navigator.userAgent);
 const isMobile = !!md.mobile();
@@ -24,29 +28,16 @@ export default class Application extends React.Component {
   }
 
 	render() {
-    const leftNavWidth = 300;
-    const leftNavProps = {
-      docked: !isMobile,
-      width: 300,
-      swipeAreaWidth: null,
-      open: this.state.open
-    };
     const contentStyle = {};
     if (isMobile) {
-      leftNavProps['onRequestChange'] = open => this.setState({open});
+      contentStyle['bottom'] = 80;
     } else {
-      contentStyle['paddingLeft'] = leftNavWidth;
+      contentStyle['left'] = 300;
     }
 		return (
 			<div className={styles.Application}>
-        <LeftNav {...leftNavProps}>
-          <List><ListItem leftAvatar={<Avatar/>} primaryText="Mikko" disabled={true}></ListItem></List>
-          <Divider/>
-          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/notifications')}>Notifications</MenuItem>
-          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/home')}>Leaderboard</MenuItem>
-          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/tasks')}>Tasks</MenuItem>
-        </LeftNav>
-				<div className={styles.Content} style={contentStyle}>{this.props.children}</div>
+        {this.renderNav()}
+        <div className={styles.Content} style={contentStyle}>{this.props.children}</div>
         <Snackbar
           open={this.props.error}
           message={this.props.error}
@@ -56,6 +47,37 @@ export default class Application extends React.Component {
 			</div>
 		);
 	}
+
+  renderNav = () => {
+    const tabStyles = {
+      fontSize: 10
+    };
+    if (isMobile) {
+      return (
+        <Tabs className={styles.NavTabs}>
+          <Tab label="Notifications" style={tabStyles} icon={<FontIcon className="material-icons">add_alert</FontIcon>}/>
+          <Tab label="Tasks" style={tabStyles} icon={<FontIcon className="material-icons">grade</FontIcon>}/>
+          <Tab label="Home" style={tabStyles} icon={<FontIcon className="material-icons">person_pin</FontIcon>}/>
+        </Tabs>
+      );
+    } else {
+      const leftNavProps = {
+        docked: !isMobile,
+        width: 300,
+        swipeAreaWidth: null,
+        open: this.state.open
+      };
+      return (
+        <LeftNav {...leftNavProps}>
+          <List><ListItem leftAvatar={<Avatar/>} primaryText="Mikko" disabled={true}></ListItem></List>
+          <Divider/>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/notifications')}>Notifications</MenuItem>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/home')}>Leaderboard</MenuItem>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/tasks')}>Tasks</MenuItem>
+        </LeftNav>
+      );
+    }
+  }
 
   onCloseSnackbar = () => {
     this.props.dispatch(error(false));
