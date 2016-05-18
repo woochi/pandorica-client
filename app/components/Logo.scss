@@ -2,8 +2,13 @@
 
 :local {
   .Logo {
+    transition: transform 0.2s ease-out;
     width: rhythm(2);
     margin: rhythm(1) auto;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 
