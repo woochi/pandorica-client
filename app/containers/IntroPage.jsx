@@ -21,7 +21,7 @@ class IntroPage extends React.Component {
             Complete quests, collect points and lead your faction to a glorious victory.
             The winning faction will be crowned and rewarded in the Ropecon closing ceremony.
           </Paragraph>
-          <Link to="signup/faction"><PrimaryButton>
+          <Link to="/signup/faction"><PrimaryButton>
             Join the game
           </PrimaryButton></Link>
           <Paragraph><GreyLink to="login">Already have an account? Sign in.</GreyLink></Paragraph>
