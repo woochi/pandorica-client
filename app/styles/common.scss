@@ -6,7 +6,7 @@ html {
   font-size: 100%;
 }
 
-html, body, #content {
+html, body, :global(#content) {
   position: absolute;
   left: 0;
   right: 0;

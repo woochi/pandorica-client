@@ -1,6 +1,6 @@
 @import 'reset-typography';
 
-.green {
+:global(.green) {
   color: $green;
 }
 

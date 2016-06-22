@@ -56,7 +56,9 @@ class FactionSelectPage extends React.Component {
                     <Title>Pick your side</Title>
                     <Subtitle>You will be contributing points towards the victory of your own team.</Subtitle>
                   </div>
-                  <div className={styles.CardImage}><img src={card.image} width="100%"/></div>
+                  <div className={styles.CardImageContainer}>
+                    <img src={card.image} className={styles.CardImage} width="100%"/>
+                  </div>
                   <div className={styles.CardTitle}>{card.title}</div>
                   <Subtitle className={styles.CardSubtitle}>{card.subtitle}</Subtitle>
                   <GreenButton onClick={this.submitMobile.bind(card.value)}>{card.buttonLabel}</GreenButton>

@@ -1,86 +1,89 @@
 @import 'variables';
 @import 'vertical-rhythm';
 
-:local {
-  .Card {
-    width: 100%;
-    cursor: pointer;
-    transition: all 0.2s ease-out;
-    position: relative;
-    margin: rhythm(1) auto;
-    overflow: hidden;
-    padding: rhythm(1) rhythm(1) 0 rhythm(1);
+.Card {
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  position: relative;
+  margin: rhythm(1) auto;
+  overflow: hidden;
+  padding: rhythm(1) rhythm(1) 0 rhythm(1);
+}
+
+.CardSelected {
+  box-shadow: 0 6px 14px rgba($black, 0.2);
+  background: $white;
+
+  .title, .subtitle {
+    color: $grey9;
   }
 
-  .CardSelected {
-    box-shadow: 0 6px 14px rgba($black, 0.2);
-    background: $white;
+  .imageContainer {
+    opacity: 0.9;
+  }
+}
 
-    .title, .subtitle {
-      color: $grey9;
-    }
+.image {
+  width: auto;
+  height: 100%;
+}
 
-    .image {
-      opacity: 0.9;
-    }
+.imageContainer {
+  opacity: 0.5;
+  width: 20%;
+  margin: 0 auto;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+.footer {
+  overflow: hidden;
+}
+
+.title {
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-weight: $font-weight-normal
+}
+
+.subtitle {
+  @include font-size(14px);
+}
+
+@media #{$medium-up} {
+  .Card {
+    text-align: left;
   }
 
   .image {
-    opacity: 0.5;
+    float: left;
     width: 20%;
-    margin: 0 auto;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
   }
 
   .footer {
-    overflow: hidden;
+    padding-left: rhythm(2);
+  }
+}
+
+@media #{$large-up} {
+  .Card {
+    width: rhythm(14);
+    height: rhythm(20);
+    text-align: center;
   }
 
-  .title {
-    text-transform: uppercase;
-    letter-spacing: 8px;
-    font-weight: $font-weight-normal
+  .image {
+    float: none;
+    width: 80%;
+    margin: rhythm(1) auto;
   }
 
-  .subtitle {
-    @include font-size(14px);
-  }
-
-  @media #{$medium-up} {
-    .Card {
-      text-align: left;
-    }
-
-    .image {
-      float: left;
-      width: 20%;
-    }
-
-    .footer {
-      padding-left: rhythm(2);
-    }
-  }
-
-  @media #{$large-up} {
-    .Card {
-      width: rhythm(14);
-      height: rhythm(20);
-      text-align: center;
-    }
-
-    .image {
-      float: none;
-      width: 80%;
-      margin: rhythm(1) auto;
-    }
-
-    .footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: rhythm(0.5) rhythm(2);
-    }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: rhythm(0.5) rhythm(2);
   }
 }

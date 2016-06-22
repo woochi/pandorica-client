@@ -1,10 +1,9 @@
 @import 'variables';
 @import 'vertical-rhythm';
 
-:local {
-  .Subtitle {
-    @include font-size(14px);
-    margin-top: rhythm(-0.5);
-    color: rgba($white, 0.7);
-  }
+.Subtitle {
+  @include font-size(14px);
+  margin-top: rhythm(-0.5);
+  margin-bottom: rhythm(1);
+  color: rgba($white, 0.7);
 }

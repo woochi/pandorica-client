@@ -1,37 +1,35 @@
 @import 'variables';
 @import 'vertical-rhythm';
 
-:local {
-  .MobileContainer {
-    width: 100%;
-    height: 100%;
-  }
+.MobileContainer {
+  width: 100%;
+  height: 100%;
+}
 
-  .MobileHeader {
-    text-align: center;
-    padding: 0 rhythm(1);
-  }
+.MobileHeader {
+  text-align: center;
+  padding: 0 rhythm(1);
+}
 
-  .Header {
-    right: 0;
-    margin-top: rhythm(-3);
-  }
+.Header {
+  right: 0;
+  margin-top: rhythm(-3);
+}
 
-  .CardImage {
-    width: auto;
-    height: rhythm(8);
-    overflow: hidden;
-    margin: rhythm(1) auto;
-  }
+.CardImage {
+  width: auto;
+  height: rhythm(8);
+  overflow: hidden;
+  margin: rhythm(1) auto;
+}
 
-  .CardTitle {
-    text-transform: uppercase;
-    letter-spacing: 8px;
-    font-weight: $font-weight-normal;
-    margin: rhythm(0.5) 0;
-  }
+.CardTitle {
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-weight: $font-weight-normal;
+  margin: rhythm(0.5) 0;
+}
 
-  .CardSubtitle {
-    @include font-size(14px);
-  }
+.CardSubtitle {
+  @include font-size(14px);
 }
