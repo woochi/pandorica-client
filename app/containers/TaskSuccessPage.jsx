@@ -8,10 +8,10 @@ import * as taskActions from 'actions/taskActions';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import Loader from 'components/Loader';
+import GreenButton from 'components/GreenButton';
 
 class TaskSuccessPage extends React.Component {
   componentWillMount() {
-    console.log(this.props);
     if (!this.props.task) {
       this.props.router.push('/app/notifications');
     }
@@ -23,8 +23,8 @@ class TaskSuccessPage extends React.Component {
         <Loader loading={this.props.loading}>
           <Center>
             <PointDisplay points={this.props.task.points}/>
-            <Paragraph>You have successfully completed the task!</Paragraph>
-            <RaisedButton label="Continue to next task" primary={true} onClick={this.continue}/>
+            <Paragraph>You have successfully completed the quest <strong>&ldquo;{this.props.task.name}&rdquo;</strong>!</Paragraph>
+            <GreenButton primary={true} onClick={this.continue}>Get the next quest</GreenButton>
           </Center>
         </Loader>
       </Page>

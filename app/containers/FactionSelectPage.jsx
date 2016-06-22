@@ -6,9 +6,9 @@ import Carousel from 'nuka-carousel';
 import Paragraph from 'components/Paragraph';
 import Card from 'components/Card';
 import Deck from 'components/Deck';
-import neutralImage from 'images/neutral.jpg';
-import orderImage from 'images/order.jpg';
-import chaosImage from 'images/chaos.jpg';
+import neutralImage from 'images/scales.png';
+import orderImage from 'images/shield.png';
+import chaosImage from 'images/swords.png';
 import {reduxForm} from 'redux-form';
 import SuperTitle from 'components/SuperTitle';
 import {StaggeredMotion, spring} from 'react-motion';
@@ -36,9 +36,9 @@ class FactionSelectPage extends React.Component {
 
   getContent = () => {
     const cards = [
-      {value: 'ORDER', image: neutralImage, title: "Order", subtitle: "Collect points to maintain order.", buttonLabel: "Maintain order"},
+      {value: 'ORDER', image: orderImage, title: "Order", subtitle: "Collect points to maintain order.", buttonLabel: "Maintain order"},
       {value: 'NEUTRAL', image: neutralImage, title: "Balance", subtitle: "Collect points for fun.", buttonLabel: "Seek balance"},
-      {value: 'CHAOS', image: neutralImage, title: "Chaos", subtitle: "Collect points to increase chaos.", buttonLabel: "Create chaos"}
+      {value: 'CHAOS', image: chaosImage, title: "Chaos", subtitle: "Collect points to cause chaos.", buttonLabel: "Create chaos"}
     ];
     const {
       fields: {faction}
@@ -83,7 +83,17 @@ class FactionSelectPage extends React.Component {
               <Deck>
                 {interpolatingStyles.map((style, i) => {
                   const card = cards[i];
-                  return <Card key={i} selected={card.value === faction.value} onSelect={this.submit} {...faction} value={card.value} onMouseEnter={this.select.bind(this, card.value)} title={card.title} subtitle={card.subtitle} buttonLabel={card.buttonLabel} style={{opacity: 0.01 * style.offset, transform: `translateY(${initialOffset - style.offset}px)`}}/>
+                  return <Card
+                    key={i}
+                    image={card.image}
+                    selected={card.value === faction.value}
+                    onSelect={this.submit}
+                    {...faction}
+                    value={card.value}
+                    onMouseEnter={this.select.bind(this, card.value)}
+                    title={card.title} subtitle={card.subtitle}
+                    buttonLabel={card.buttonLabel}
+                    style={{opacity: 0.01 * style.offset, transform: `translateY(${initialOffset - style.offset}px)`}}/>
                 })}
               </Deck>
             }

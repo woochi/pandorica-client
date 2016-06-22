@@ -9,6 +9,11 @@ import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 import Paper from 'material-ui/lib/paper';
 import SwipeableViews from 'react-swipeable-views';
+import Center from 'components/Center';
+import Title from 'components/Title';
+import Subtitle from 'components/Subtitle';
+import Paragraph from 'components/Paragraph';
+import Countdown from 'components/Countdown';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -32,17 +37,11 @@ class HomePage extends React.Component {
     }
 		return (
 			<Page>
-          <GameStatus></GameStatus>
-          <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
-            <Tab label="All" value={0}/>
-            <Tab label="Order" value={1}/>
-            <Tab label="Chaos" value={2}/>
-          </Tabs>
-          <SwipeableViews index={this.state.slideIndex} disabled={true}>
-            <List>{items}</List>
-            <List>{items}</List>
-            <List>{items}</List>
-          </SwipeableViews>
+        <Center>
+          <Title>Preparing for the hunt&hellip;</Title>
+          <Paragraph>The Ropecon treasure hunt launches officially on Friday 29.7. at 09:00.<br/>The first quests will be posted when the venue gates open.</Paragraph>
+          <Countdown/>
+        </Center>
 			</Page>
 		);
 	}

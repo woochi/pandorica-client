@@ -24,7 +24,7 @@ export default class PointDisplay extends React.Component {
   render() {
     const counterClassName = classnames({
       'invisible': this.props.run,
-      [styles.Counter]: true
+      [styles.counter]: true
     });
     const progressClassName = classnames({
       'invisible': this.props.run,
@@ -33,8 +33,9 @@ export default class PointDisplay extends React.Component {
     const progressValue = this.state.run ? 100: 0;
     return (
       <div className={styles.PointDisplay}>
-        <div className={styles.CounterWrapper}>
+        <div className={styles.counterWrapper}>
           <Counter className={counterClassName} to={this.props.points} duration={2000} delay={500}/>
+          <div className={styles.suffix}>Points</div>
         </div>
         <CircularProgress className={progressClassName} mode="determinate" value={progressValue} size={3}/>
         <CircularProgress className={styles.Base} mode="determinate" value={100} size={3}/>

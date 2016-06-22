@@ -10,6 +10,10 @@ import {NOTIFICATION_TYPES} from 'enums';
 import Placeholder from 'components/Placeholder';
 import Loader from 'components/Loader';
 import {withRouter} from 'react-router';
+import Paper from 'material-ui/lib/Paper';
+import styles from './NotificationsPage.scss';
+import PullToRefresh from 'react-pull-to-refresh';
+import 'styles/pull-to-refresh.scss';
 
 const primaryTextForNotificationType = {
   [NOTIFICATION_TYPES.TASK]: 'New Task'
@@ -18,9 +22,13 @@ const primaryTextForNotificationType = {
 function renderContent(items) {
   if (items.length) {
     return (
-      <List>
-        {items}
-      </List>
+      <div className={styles.wrapper}>
+        <Paper>
+          <List>
+            {items}
+          </List>
+        </Paper>
+      </div>
     );
   } else {
     return <Placeholder>No notifications published yet. Stay on the lookout closer to the event start time.</Placeholder>;
@@ -48,15 +56,20 @@ class NotificationsPage extends React.Component {
       items.push(<Divider key={i} inset={true}/>);
     }
     return (
-      <Page>
-        <Loader loading={this.props.loading}>{renderContent(items)}</Loader>
-      </Page>
+      <PullToRefresh handleRefresh={this.onRefresh.bind(this)}>
+        <Page>
+          <Loader loading={this.props.loading}>{renderContent(items)}</Loader>
+        </Page>
+      </PullToRefresh>
     )
   }
 
   openNotification(notification) {
-    console.log(notification);
     this.props.router.push(`/app/notifications/${notification._id}`);
+  }
+
+  onRefresh(resolve, reject) {
+    console.log('REFRESH');
   }
 }
 

@@ -1,28 +1,27 @@
-import TextField from 'material-ui/lib/text-field';
+import TextField from 'components/TextField';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Fieldset from 'components/Fieldset';
+import GreenButton from 'components/GreenButton';
 
 class TaskCodeForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
-  }
-
   render() {
     return (
       <Fieldset>
-        <TextField fullWidth={true} hintText="Insert task code" type="text" value={this.state.value} onChange={this.onChange}></TextField>
-        <RaisedButton label="Check code" primary={true} fullWidth={true} onClick={this.onSubmit} disabled={this.props.loading}/>
+        <TextField
+          fullWidth={true}
+          autoFocus={true}
+          placeholder="Type in the quest code"
+          type="text"
+          value={this.props.value}
+          onChange={this.props.onChange}
+          maxLength={6}/>
+        <GreenButton fullWidth={true} onClick={this.onSubmit} disabled={this.props.loading}>Check code</GreenButton>
       </Fieldset>
     );
   }
 
-  onChange = (event) => {
-    this.setState({value: event.target.value});
-  }
-
   onSubmit = () => {
-    this.props.onSubmit(this.state.value);
+    this.props.onSubmit(this.props.value);
   }
 }
 

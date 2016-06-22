@@ -21,12 +21,12 @@ class LoginForm extends React.Component {
     } = this.props;
 
     return (
-      <form>
+      <form onSubmit={handleSubmit}>
         <Fieldset>
           <TextField ref="email" type="email" hintText="Email" fullWidth={true} {...email}/>
           <TextField type="password" hintText="Password" fullWidth={true} {...password}/>
         </Fieldset>
-        <PrimaryButton onClick={handleSubmit}>Log in</PrimaryButton>
+        <PrimaryButton type="submit">Log in</PrimaryButton>
       </form>
     )
   }

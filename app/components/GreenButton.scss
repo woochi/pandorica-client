@@ -1,18 +1,8 @@
 @import 'variables';
-@import 'vertical-rhythm';
 
 :local {
-  .GreenButton {
-    cursor: pointer;
-    display: inline-block;
+  .normal {
+    color: $white;
     background: $green;
-    padding: rhythm(0.5) rhythm(1);
-    margin: rhythm(1) 0;
-    width: 100%;
-    box-shadow: $base-box-shadow;
-
-    &:hover {
-      background: lighten($green, 10%);
-    }
   }
 }

@@ -8,6 +8,7 @@ import SuperTitle from 'components/SuperTitle';
 import HeroTitle from 'components/HeroTitle';
 import PrimaryButton from 'components/PrimaryButton';
 import Logo from 'components/Logo';
+import GreyLink from 'components/GreyLink';
 
 class IntroPage extends React.Component {
   render() {
@@ -18,12 +19,13 @@ class IntroPage extends React.Component {
           <SuperTitle>Ropecon treasure hunt</SuperTitle>
           <HeroTitle>Join the fight for order or chaos!</HeroTitle>
           <Paragraph>
-            Complete quests to lead your faction to a glorious victory.
+            Complete quests, collect points and lead your faction to a glorious victory.
             The winning faction will be crowned and rewarded in the Ropecon closing ceremony.
           </Paragraph>
           <Link to="signup/faction"><PrimaryButton>
-            Join a faction
+            Join the game
           </PrimaryButton></Link>
+          <Paragraph><GreyLink to="login">Already have an account? Sign in.</GreyLink></Paragraph>
         </Center>
       </Page>
     );

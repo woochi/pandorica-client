@@ -6,6 +6,8 @@ import api from 'lib/api';
 import Center from 'components/Center';
 import Subtitle from 'components/Subtitle';
 import Logo from 'components/Logo';
+import Paragraph from 'components/Paragraph';
+import GreyLink from 'components/GreyLink';
 
 class LoginPage extends React.Component {
   render() {
@@ -16,8 +18,9 @@ class LoginPage extends React.Component {
           <Title>Welcome back</Title>
           <Subtitle>The fight still continues. Log in and get back to your quests.</Subtitle>
           <LoginForm onSubmit={this.onSubmit}></LoginForm>
+          <Paragraph><GreyLink to="/signup">Don't have an account yet? Sign up.</GreyLink></Paragraph>
         </Center>
-        <FooterLink to="/signup">Don't have an account yet?</FooterLink>
+        <FooterLink to="/signup"></FooterLink>
       </Page>
     );
   }

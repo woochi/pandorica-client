@@ -1,0 +1,32 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+:local {
+  .section {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    margin: 0 rhythm(1);
+
+    &:after {
+      @include font-size($font-size-big);
+      content: ':';
+      position: absolute;
+      top: rhythm(0.5);
+      right: rhythm(-1);
+    }
+
+    &:last-child:after {
+      display: none;
+    }
+  }
+
+  .value {
+    @include font-size($font-size-huge);
+  }
+
+  .label {
+    @include font-size(14px);
+    text-transform: uppercase;
+  }
+}

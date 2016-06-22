@@ -1,6 +1,42 @@
 @import 'variables';
 @import 'vertical-rhythm';
 
+@keyframes :local(pulse) {
+  from {
+    text-shadow: 0 0 4 $white;
+  }
+
+  to {
+    text-shadow: 0 0 12px $white;
+  }
+}
+
+:local {
+  .counterWrapper {
+    animation: pulse 2s ease-in-out infinite alternate;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .counter {
+    @include font-size(28px, 1.5);
+    color: $white;
+    display: block;
+    text-indent: -14px;
+  }
+
+  .suffix {
+    @include font-size(12px, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+}
+
 :local(.PointDisplay) {
   position: relative;
 }
@@ -9,28 +45,17 @@
   position: absolute !important;
   top: 0;
   z-index: 10;
+  transform: rotate(-90deg);
 
   circle {
     transition: all 2.0s ease-out !important;
+    stroke: $green !important;
   }
 }
 
 :local(.Base) {
   circle {
+    stroke-width: 4;
     stroke: $grey1 !important;
   }
-}
-
-:local(.Counter) {
-  @include font-size(28px, 2);
-  color: $cyan;
-}
-
-:local(.CounterWrapper) {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

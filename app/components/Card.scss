@@ -3,47 +3,84 @@
 
 :local {
   .Card {
+    width: 100%;
     cursor: pointer;
     transition: all 0.2s ease-out;
     position: relative;
-    margin: 0 auto;
-    width: rhythm(14);
-    height: rhythm(20);
+    margin: rhythm(1) auto;
+    overflow: hidden;
+    padding: rhythm(1) rhythm(1) 0 rhythm(1);
   }
 
   .CardSelected {
     box-shadow: 0 6px 14px rgba($black, 0.2);
     background: $white;
 
-    .CardTitle, .CardSubtitle {
+    .title, .subtitle {
       color: $grey9;
+    }
+
+    .image {
+      opacity: 0.9;
     }
   }
 
-  .CardImage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
+  .image {
+    opacity: 0.5;
+    width: 20%;
+    margin: 0 auto;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
   }
 
-  .CardFooter {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: rhythm(0.5) rhythm(2);
+  .footer {
+    overflow: hidden;
   }
 
-  .CardTitle {
+  .title {
     text-transform: uppercase;
     letter-spacing: 8px;
     font-weight: $font-weight-normal
   }
 
-  .CardSubtitle {
+  .subtitle {
     @include font-size(14px);
+  }
+
+  @media #{$medium-up} {
+    .Card {
+      text-align: left;
+    }
+
+    .image {
+      float: left;
+      width: 20%;
+    }
+
+    .footer {
+      padding-left: rhythm(2);
+    }
+  }
+
+  @media #{$large-up} {
+    .Card {
+      width: rhythm(14);
+      height: rhythm(20);
+      text-align: center;
+    }
+
+    .image {
+      float: none;
+      width: 80%;
+      margin: rhythm(1) auto;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: rhythm(0.5) rhythm(2);
+    }
   }
 }

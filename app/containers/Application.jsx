@@ -17,9 +17,16 @@ import NavTabs from 'containers/NavTabs';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 import FontIcon from 'material-ui/lib/font-icon';
+import api from 'lib/api';
 
 const md = new MobileDetect(window.navigator.userAgent);
 const isMobile = !!md.mobile();
+
+const sidebarWidth = 260;
+
+const menuItemStyle = {
+  fontFamily: 'Avenir'
+};
 
 export default class Application extends React.Component {
   constructor(props) {
@@ -32,7 +39,7 @@ export default class Application extends React.Component {
     if (isMobile) {
       contentStyle['bottom'] = 80;
     } else {
-      contentStyle['left'] = 300;
+      contentStyle['left'] = sidebarWidth;
     }
 		return (
 			<div className={styles.Application}>
@@ -55,28 +62,36 @@ export default class Application extends React.Component {
     if (isMobile) {
       return (
         <Tabs className={styles.NavTabs}>
-          <Tab label="Notifications" style={tabStyles} icon={<FontIcon className="material-icons">add_alert</FontIcon>}/>
-          <Tab label="Tasks" style={tabStyles} icon={<FontIcon className="material-icons">grade</FontIcon>}/>
-          <Tab label="Home" style={tabStyles} icon={<FontIcon className="material-icons">person_pin</FontIcon>}/>
+          <Tab label="Notifications" style={tabStyles} icon={<FontIcon className="material-icons">notifications</FontIcon>}/>
+          <Tab label="Tasks" style={tabStyles} icon={<FontIcon className="material-icons">assignment_turned_in</FontIcon>}/>
+          <Tab label="Home" style={tabStyles} icon={<FontIcon className="material-icons">whatshot</FontIcon>}/>
         </Tabs>
       );
     } else {
       const leftNavProps = {
         docked: !isMobile,
-        width: 300,
+        width: sidebarWidth,
         swipeAreaWidth: null,
         open: this.state.open
       };
       return (
         <LeftNav {...leftNavProps}>
-          <List><ListItem leftAvatar={<Avatar/>} primaryText="Mikko" disabled={true}></ListItem></List>
+          <List><ListItem leftAvatar={<Avatar/>} primaryText="Mikko" disabled={true} style={menuItemStyle}></ListItem></List>
           <Divider/>
-          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/notifications')}>Notifications</MenuItem>
-          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/home')}>Leaderboard</MenuItem>
-          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/tasks')}>Tasks</MenuItem>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/notifications')} style={menuItemStyle} leftIcon={<FontIcon className="material-icons">notifications</FontIcon>}>Notifications</MenuItem>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/home')} style={menuItemStyle} leftIcon={<FontIcon className="material-icons">whatshot</FontIcon>}>Leaderboard</MenuItem>
+          <MenuItem onTouchTap={this.onNavigate.bind(this, '/app/tasks')} style={menuItemStyle} leftIcon={<FontIcon className="material-icons">assignment_turned_in</FontIcon>}>Tasks</MenuItem>
+          <Divider/>
+          <MenuItem onTouchTap={this.logout} style={menuItemStyle} leftIcon={<FontIcon className="material-icons">lock</FontIcon>}>Sign out</MenuItem>
         </LeftNav>
       );
     }
+  }
+
+  logout = () => {
+    api.logOut().then(() => {
+      this.props.router.push('/');
+    });
   }
 
   onCloseSnackbar = () => {

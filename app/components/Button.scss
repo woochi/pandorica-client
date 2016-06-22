@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+:local {
+  .button {
+    min-width: rhythm(8);
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+    display: inline-block;
+    margin: rhythm(0.1) 0;
+    padding: rhythm(0.4) rhythm(1);
+    box-shadow: $base-box-shadow;
+    @include font-size(12px);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border: none;
+    outline: none;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba($black, 0.4);
+    }
+  }
+
+  .normal {
+    composes: button;
+
+    @media #{$medium-up} {
+      & {
+        width: auto;
+      }
+    }
+  }
+
+  .fullWidth {
+    composes: button;
+    width: 100%;
+  }
+}

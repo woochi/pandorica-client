@@ -52,7 +52,7 @@ class Counter extends React.Component {
   }
 
   render() {
-    return <div {...this.props}>{Math.round(this.state.value)}</div>;
+    return <div {...this.props}>+{Math.round(this.state.value)}</div>;
   }
 }
 

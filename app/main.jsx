@@ -60,13 +60,15 @@ function checkFactionSelected(nextState, replace) {
 render((
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Site}>
-        <IndexRoute component={IntroPage}/>
-        <Route path="login" onEnter={checkAuth} component={LoginPage}/>
-        <Route path="signup" onEnter={checkAuth}>
-          <IndexRedirect to="faction"/>
-          <Route path="faction" component={FactionSelectPage}/>
-          <Route path="complete" component={SignupPage} onEnter={checkFactionSelected}/>
+      <Route path="/">
+        <Route component={Site}>
+          <IndexRoute component={IntroPage}/>
+          <Route path="login" onEnter={checkAuth} component={LoginPage}/>
+          <Route path="signup" onEnter={checkAuth}>
+            <IndexRedirect to="faction"/>
+            <Route path="faction" component={FactionSelectPage}/>
+            <Route path="complete" component={SignupPage} onEnter={checkFactionSelected}/>
+          </Route>
         </Route>
         <Route path="app" component={Application} onEnter={requireAuth}>
           <IndexRedirect to="home"/>

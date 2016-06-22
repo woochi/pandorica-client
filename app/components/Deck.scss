@@ -4,10 +4,12 @@
 :local {
   .Deck {
     display: flex;
+    flex-direction: column;
   }
 
-  @media #{$medium-up} {
+  @media #{$large-up} {
     .Deck {
+      flex-direction: row;
       margin: rhythm(2) 0;
     }
   }
