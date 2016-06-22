@@ -5,7 +5,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 class Site extends React.Component {
   render() {
     return (
-      <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={1500} transitionLeaveTimeout={1500}>
+      <ReactCSSTransitionGroup transitionName="fade"
+        transitionAppearTimeout={1500}
+        transitionEnterTimeout={1500}
+        transitionLeaveTimeout={1500}>
         {React.cloneElement(this.props.children, {
           key: this.props.location.pathname
         })}

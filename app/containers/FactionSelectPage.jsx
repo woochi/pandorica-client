@@ -113,7 +113,8 @@ class FactionSelectPage extends React.Component {
     this.props.router.push('/signup/complete');
   }
 
-  submitMobile = (value) => {
+  submitMobile = (event, value) => {
+    console.log('VAL', value);
     this.select(value);
     this.submit();
   }
