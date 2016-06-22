@@ -52,7 +52,7 @@ module.exports = function (options) {
   		loaders: loadersByExtension(loaders).concat([
         {
           test: /\.(scss|sass)$/,
-          loader: ExtractTextPlugin.extract('style', '!css?&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss-loader!resolve-url!sass')
+          loader: ExtractTextPlugin.extract('style', '!css?module&localIdentName=[local]___[hash:base64:5]!postcss-loader!resolve-url!sass')
         }
       ])
 		},

@@ -1,10 +1,7 @@
 @import 'variables';
 @import 'vertical-rhythm';
-@import 'button';
 
-:local {
-  .PrimaryButton {
-    background: $white;
-    color: $grey5;
-  }
+.PrimaryButton {
+  background: $white;
+  color: $grey5;
 }
