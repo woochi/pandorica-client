@@ -13,7 +13,7 @@ class Card extends React.Component {
     });
     return (
       <div className={className} onClick={this.props.onSelect} {...this.props}>
-        <div>
+        <div className={styles.image}>
           <img src={this.props.image} width="100%"/>
         </div>
         <div className={styles.footer}>
