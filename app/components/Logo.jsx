@@ -10,9 +10,9 @@ class Logo extends React.Component {
       <ReactCSSTransitionGroup
         transitionName="logo"
         transitionAppear={true}
-        transitionAppearTimeout={1500}
-        transitionEnterTimeout={1500}
-        transitionLeaveTimeout={1500}>
+        transitionAppearTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}>
         <div className={styles.Logo}>
           <Link to="/"><img src={image} width="100%"/></Link>
         </div>

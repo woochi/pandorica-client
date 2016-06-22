@@ -1,25 +1,25 @@
 @import 'variables';
 @import 'vertical-rhythm';
 
-:local {
-  .Page {
-    width: 100%;
-    height: 100%;
-    flex: 1 0 auto;
-  }
+.Page {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
 
-  :global(.ptr-loading) .Page, :global(.ptr-reset) .Page,
-  :global(.ptr-loading) #ptr, :global(.ptr-reset) #ptr {
-    transition: all .25s ease;
-  }
+:global(.ptr-loading) .Page, :global(.ptr-reset) .Page,
+:global(.ptr-loading) #ptr, :global(.ptr-reset) #ptr {
+  transition: all .25s ease;
+}
 
-  :global(.ptr-reset) .Page {
-    -webkit-transform: translate3d( 0, 0, 0 );
-    transform: translate3d( 0, 0, 0 );
-  }
+:global(.ptr-reset) .Page {
+  -webkit-transform: translate3d( 0, 0, 0 );
+  transform: translate3d( 0, 0, 0 );
+}
 
-  :global(.ptr-loading) .Page {
-    -webkit-transform: translate3d( 0, 50px, 0 );
-    transform: translate3d( 0, 50px, 0 );
-  }
+:global(.ptr-loading) .Page {
+  -webkit-transform: translate3d( 0, 50px, 0 );
+  transform: translate3d( 0, 50px, 0 );
 }

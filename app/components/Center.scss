@@ -14,7 +14,8 @@
 
   .CenterPadding {
     width: 100%;
-    padding: 10%;
+    max-width: rhythm(52);
+    padding: rhythm(2);
   }
 
   .CenterContent {
