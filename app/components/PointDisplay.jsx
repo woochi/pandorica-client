@@ -1,4 +1,4 @@
-import CircularProgress from 'material-ui/lib/circular-progress';
+import CircularProgress from 'material-ui/CircularProgress';
 import styles from './PointDisplay.scss';
 import Counter from 'components/Counter';
 import classnames from 'classnames';

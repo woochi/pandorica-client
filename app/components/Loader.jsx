@@ -1,4 +1,4 @@
-import CircularProgress from 'material-ui/lib/circular-progress';
+import CircularProgress from 'material-ui/CircularProgress';
 import Center from 'components/Center';
 
 class Loader extends React.Component {

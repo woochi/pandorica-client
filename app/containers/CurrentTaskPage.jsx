@@ -5,7 +5,7 @@ import FooterLink from 'components/FooterLink';
 import {getFormState} from 'lib/immutableForm';
 import {reduxForm} from 'redux-form';
 import FetchError from 'components/FetchError';
-import CircularProgress from 'material-ui/lib/circular-progress';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class CurrentTaskPage extends React.Component {
   constructor(props) {

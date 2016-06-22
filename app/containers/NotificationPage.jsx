@@ -4,7 +4,6 @@ import * as notificationActions from 'actions/notificationActions';
 import Title from 'components/Title';
 import Paragraph from 'components/Paragraph';
 import Center from 'components/Center';
-import RaisedButton from 'material-ui/lib/raised-button';
 import {withRouter} from 'react-router';
 import GreyLink from 'components/GreyLink';
 import Loader from 'components/Loader';

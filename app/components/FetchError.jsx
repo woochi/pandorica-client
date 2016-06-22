@@ -1,6 +1,6 @@
 import Center from 'components/Center';
 import Paragraph from 'components/Paragraph';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class FetchError extends React.Component {
   render() {

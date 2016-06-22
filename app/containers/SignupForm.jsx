@@ -1,11 +1,9 @@
 import {PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
-import TextField from 'material-ui/lib/text-field';
-import RaisedButton from 'material-ui/lib/raised-button';
-import SelectField from 'material-ui/lib/select-field';
-import MenuItem from 'material-ui/lib/menus/menu-item';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import Fieldset from 'components/Fieldset';
-import DropDownMenu from 'material-ui/lib/DropDownMenu';
 import {getFormState} from 'lib/immutableForm';
 import PrimaryButton from 'components/PrimaryButton';
 

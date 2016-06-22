@@ -4,7 +4,7 @@ import Field from 'components/Field';
 class Fieldset extends React.Component {
   render() {
     return (
-      <div className="field-list">
+      <div className={styles.FieldSet}>
         {React.Children.map(this.props.children, (child) => {
           return (<Field>{child}</Field>);
         })}

@@ -2,7 +2,6 @@ import Page from 'components/Page';
 import Title from 'components/Title';
 import Paragraph from 'components/Paragraph';
 import Center from 'components/Center';
-import RaisedButton from 'material-ui/lib/raised-button';
 import {Link} from 'react-router';
 import SuperTitle from 'components/SuperTitle';
 import HeroTitle from 'components/HeroTitle';

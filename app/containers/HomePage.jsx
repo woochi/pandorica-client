@@ -1,13 +1,10 @@
 import React from "react";
-import Avatar from 'material-ui/lib/avatar';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import Divider from 'material-ui/lib/divider';
+import Avatar from 'material-ui/Avatar';
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 import Page from 'components/Page';
 import GameStatus from 'components/GameStatus';
-import Tabs from 'material-ui/lib/tabs/tabs';
-import Tab from 'material-ui/lib/tabs/tab';
-import Paper from 'material-ui/lib/paper';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import Center from 'components/Center';
 import Title from 'components/Title';

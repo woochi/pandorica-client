@@ -1,5 +1,5 @@
 import TextField from 'components/TextField';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 import Fieldset from 'components/Fieldset';
 import GreenButton from 'components/GreenButton';
 

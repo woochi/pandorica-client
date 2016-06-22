@@ -1,5 +1,5 @@
 import styles from './GameStatus.scss';
-import CircularProgress from 'material-ui/lib/circular-progress';
+import CircularProgress from 'material-ui/CircularProgress';
 
 export default class GameStatus extends React.Component {
   render () {

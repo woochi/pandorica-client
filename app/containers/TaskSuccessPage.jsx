@@ -3,7 +3,7 @@ import Center from 'components/Center';
 import Paragraph from 'components/Paragraph';
 import PointDisplay from 'components/PointDisplay';
 import Title from 'components/Title';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 import * as taskActions from 'actions/taskActions';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
