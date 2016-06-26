@@ -10,6 +10,7 @@ import Loader from 'components/Loader';
 import * as taskActions from 'actions/taskActions';
 import TaskCodeForm from 'components/TaskCodeForm';
 import _ from 'lodash';
+import {error} from 'actions/errorActions';
 
 class NotificationPage extends React.Component {
   componentWillMount() {
@@ -42,8 +43,11 @@ class NotificationPage extends React.Component {
   }
 
   checkCode = (code) => {
+    console.log('CHECK', code);
     this.props.dispatch(taskActions.submit(code)).then(() => {
       this.props.router.push(`/app/tasks/${this.props.notification.task._id}/success`);
+    }).catch((err) => {
+      this.props.dispatch(error(err));
     });
   }
 }

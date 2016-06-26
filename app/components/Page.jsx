@@ -18,4 +18,10 @@ export class PageSlider extends React.Component {
   }
 }
 
+export class PaddedContainer extends React.Component {
+  render() {
+    return <div className={styles.PaddedContainer}>{this.props.children}</div>
+  }
+}
+
 export default Page;

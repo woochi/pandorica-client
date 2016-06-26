@@ -1,0 +1,7 @@
+@import 'variables';
+
+.Tabs {
+  & > div:first-child {
+    background: $white !important;
+  }
+}

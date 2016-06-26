@@ -21,6 +21,7 @@ import NotificationPage from 'containers/NotificationPage';
 import TaskSuccessPage from 'containers/TaskSuccessPage';
 import IntroPage from 'containers/IntroPage';
 import FactionSelectPage from 'containers/FactionSelectPage';
+import SettingsPage from 'containers/SettingsPage';
 
 import 'styles/common.scss';
 
@@ -79,6 +80,7 @@ render((
             <Route path="notifications/:id" component={NotificationPage}/>
             <Route path="tasks" component={TasksPage}/>
             <Route path="tasks/:id/success" component={TaskSuccessPage} onEnter={test}/>
+            <Route path="settings" component={SettingsPage}/>
           </Route>
           <Route path="*" component={NotFoundPage} />
         </Route>

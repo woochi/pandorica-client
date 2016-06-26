@@ -9,6 +9,16 @@
   top: 0;
 }
 
+.PaddedContainer {
+  padding: rhythm(1);
+}
+
+@media #{$large-up} {
+  .PaddedContainer {
+    padding: rhythm(2);
+  }
+}
+
 :global(.ptr-loading) .Page, :global(.ptr-reset) .Page,
 :global(.ptr-loading) #ptr, :global(.ptr-reset) #ptr {
   transition: all .25s ease;

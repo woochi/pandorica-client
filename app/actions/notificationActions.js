@@ -24,7 +24,7 @@ export function error(response) {
 export function fetch() {
   return function(dispatch, getState) {
     dispatch(loadStart());
-    api.get('/notifications')
+    return api.get('/notifications')
       .then((response) => {
         dispatch(success(response));
       })
@@ -37,7 +37,7 @@ export function fetch() {
 export function get(id) {
   return function(dispatch, getState) {
     dispatch(loadStart());
-    api.get(`/notifications/${id}`)
+    return api.get(`/notifications/${id}`)
       .then((response) => {
         dispatch(success(response));
       })

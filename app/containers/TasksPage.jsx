@@ -15,6 +15,8 @@ import {reduxForm} from 'redux-form';
 import {withRouter} from 'react-router';
 import GreenButton from 'components/GreenButton';
 import TaskCodeForm from 'components/TaskCodeForm';
+import { bindActionCreators } from 'redux';
+import * as errorActions from 'actions/errorActions';
 
 const fields = ['code'];
 
@@ -37,11 +39,13 @@ class TasksPage extends React.Component {
   }
 
   checkCode = () => {
-    this.props.dispatch(taskActions.submit(this.props.fields.code.value)).then((task) => {
+    this.props.taskActions.submit(this.props.fields.code.value).then((task) => {
       this.props.router.push({
         pathname: `/app/tasks/${task._id}/success`,
         state: {nextPathName: '/app/tasks'}
       });
+    }).catch((error) => {
+      this.props.errorActions.error(error);
     });
   }
 }
@@ -52,7 +56,14 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(mapStateToProps)(reduxForm({
+function mapDispatchToProps(dispatch) {
+  return {
+    taskActions: bindActionCreators(taskActions, dispatch),
+    errorActions: bindActionCreators(errorActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'task',
   fields,
   getFormState

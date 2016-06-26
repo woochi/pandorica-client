@@ -2,7 +2,7 @@ import React from "react";
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
-import Page from 'components/Page';
+import {Page, PaddedContainer} from 'components/Page';
 import * as notificationActions from 'actions/notificationActions';
 import {connect} from 'react-redux';
 import {NOTIFICATION_TYPES} from 'enums';
@@ -13,6 +13,9 @@ import Paper from 'material-ui/Paper';
 import styles from './NotificationsPage.scss';
 import PullToRefresh from 'react-pull-to-refresh';
 import 'styles/pull-to-refresh.scss';
+import Center from 'components/Center';
+import Title from 'components/Title';
+import Paragraph from 'components/Paragraph';
 
 const primaryTextForNotificationType = {
   [NOTIFICATION_TYPES.TASK]: 'New Task'
@@ -21,16 +24,19 @@ const primaryTextForNotificationType = {
 function renderContent(items) {
   if (items.length) {
     return (
-      <div className={styles.wrapper}>
+      <PaddedContainer>
         <Paper>
           <List>
             {items}
           </List>
         </Paper>
-      </div>
+      </PaddedContainer>
     );
   } else {
-    return <Placeholder>No notifications published yet. Stay on the lookout closer to the event start time.</Placeholder>;
+    return <Center>
+      <Title>No notifications have been published yet.</Title>
+      <Paragraph>Stay on the lookout closer to the event start time.</Paragraph>
+    </Center>;
   }
 }
 
@@ -55,7 +61,7 @@ class NotificationsPage extends React.Component {
       items.push(<Divider key={i} inset={true}/>);
     }
     return (
-      <PullToRefresh handleRefresh={this.onRefresh.bind(this)}>
+      <PullToRefresh onRefresh={this.onRefresh}>
         <Page>
           <Loader loading={this.props.loading}>{renderContent(items)}</Loader>
         </Page>
@@ -67,8 +73,8 @@ class NotificationsPage extends React.Component {
     this.props.router.push(`/app/notifications/${notification._id}`);
   }
 
-  onRefresh(resolve, reject) {
-    console.log('REFRESH');
+  onRefresh = (resolve, reject) => {
+    this.props.dispatch(notificationActions.fetch()).then(resolve).catch(reject);
   }
 }
 

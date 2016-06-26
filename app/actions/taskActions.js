@@ -66,5 +66,6 @@ export function submit(code) {
           throw err;
         });
     }
+    return Promise.reject(new Error('Type in the quest code'));
   }
 }

@@ -1,9 +1,8 @@
 @import 'variables';
 @import 'vertical-rhythm';
 
-:local {
-  .Title {
-    @include font-size(20px);
-    margin: rhythm(1) 0;
-  }
+.Title {
+  @include font-size(20px);
+  margin: rhythm(1) 0;
+  color: $white;
 }

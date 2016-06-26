@@ -1,23 +1,48 @@
-:local {
-  .Application {
-    width: 100%;
-    height: 100%;
-  }
+@import 'variables';
+@import 'vertical-rhythm';
 
-  .Content {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+.Application {
+  width: 100%;
+  height: 100%;
+}
 
-  .NavTabs {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  }
+.Content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.NavTabs {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-top: 1px solid $grey1;
+}
+
+.NavTabsContentContainer {
+  background: $white;
+}
+
+.NavTab :global(.material-icons) {
+  color: $grey4 !important;
+}
+
+.NavTabActive :global(.material-icons) {
+  color: $green !important;
+}
+
+.DrawerHeader {
+  padding: rhythm(1);
+}
+
+.DrawerFooter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

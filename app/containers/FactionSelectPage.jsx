@@ -92,7 +92,7 @@ class FactionSelectPage extends React.Component {
                     onSelect={this.submit}
                     {...faction}
                     value={card.value}
-                    onMouseEnter={this.select.bind(this, card.value)}
+                    onMouseOver={this.select.bind(this, card.value)}
                     title={card.title} subtitle={card.subtitle}
                     buttonLabel={card.buttonLabel}
                     style={{opacity: 0.01 * style.offset, transform: `translateY(${initialOffset - style.offset}px)`}}/>
@@ -114,7 +114,6 @@ class FactionSelectPage extends React.Component {
   }
 
   submitMobile = (event, value) => {
-    console.log('VAL', value);
     this.select(value);
     this.submit();
   }
