@@ -4,6 +4,11 @@ import Fieldset from 'components/Fieldset';
 import GreenButton from 'components/GreenButton';
 
 class TaskCodeForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {value: ''};
+  }
+
   render() {
     return (
       <div>
@@ -13,8 +18,8 @@ class TaskCodeForm extends React.Component {
             autoFocus={true}
             placeholder="Type in the quest code"
             type="text"
-            value={this.props.value}
-            onChange={this.props.onChange}
+            value={this.state.value}
+            onChange={this.onInput}
             maxLength={6}/>
         </Fieldset>
         <Fieldset>
@@ -24,8 +29,12 @@ class TaskCodeForm extends React.Component {
     );
   }
 
+  onInput = (e) => {
+    this.setState({value: e.target.value});
+  }
+
   onSubmit = () => {
-    this.props.onSubmit(this.props.value);
+    this.props.onSubmit(this.state.value);
   }
 }
 

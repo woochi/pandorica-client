@@ -13,14 +13,21 @@ import _ from 'lodash';
 import {error} from 'actions/errorActions';
 
 class NotificationPage extends React.Component {
+  constructor() {
+    super();
+    this.state = {loading: true};
+  }
+
   componentWillMount() {
-    this.props.dispatch(notificationActions.get(this.props.params.id));
+    this.props.dispatch(notificationActions.get(this.props.params.id)).then(() => {
+      this.setState({loading: false});
+    });
   }
 
   render() {
     return (
       <Page>
-        <Loader loading={this.props.loading}>
+        <Loader loading={this.state.loading}>
           <Center>
             <Title>{this.props.notification.title}</Title>
             <Paragraph>{this.props.notification.message}</Paragraph>
@@ -43,7 +50,7 @@ class NotificationPage extends React.Component {
   }
 
   checkCode = (code) => {
-    console.log('CHECK', code);
+    console.log('CODE', code);
     this.props.dispatch(taskActions.submit(code)).then(() => {
       this.props.router.push(`/app/tasks/${this.props.notification.task._id}/success`);
     }).catch((err) => {

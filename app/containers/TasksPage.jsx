@@ -18,13 +18,10 @@ import TaskCodeForm from 'components/TaskCodeForm';
 import { bindActionCreators } from 'redux';
 import * as errorActions from 'actions/errorActions';
 
-const fields = ['code'];
-
 class TasksPage extends React.Component {
   render() {
     const {
-      task,
-      fields: {code}
+      task
     } = this.props;
     let content;
     return (
@@ -32,14 +29,14 @@ class TasksPage extends React.Component {
         <Center>
           <Title>Found a wild quest marker?</Title>
           <Paragraph>Get codes from presentations, hidden quest markers or surprise events.<br/>Enter the code and collect points for your team!</Paragraph>
-          <TaskCodeForm {...code} onSubmit={this.checkCode}/>
+          <TaskCodeForm onSubmit={this.checkCode}/>
         </Center>
       </Page>
     );
   }
 
-  checkCode = () => {
-    this.props.taskActions.submit(this.props.fields.code.value).then((task) => {
+  checkCode = (code) => {
+    this.props.taskActions.submit(code).then((task) => {
       this.props.router.push({
         pathname: `/app/tasks/${task._id}/success`,
         state: {nextPathName: '/app/tasks'}
@@ -63,8 +60,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'task',
-  fields,
-  getFormState
-})(withRouter(TasksPage)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TasksPage));

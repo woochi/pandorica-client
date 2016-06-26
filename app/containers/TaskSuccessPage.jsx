@@ -23,6 +23,7 @@ class TaskSuccessPage extends React.Component {
         <Loader loading={this.props.loading}>
           <Center>
             <PointDisplay points={this.props.task.points}/>
+            <Title>Magnificent!</Title>
             <Paragraph>You have successfully completed the quest <strong>&ldquo;{this.props.task.name}&rdquo;</strong>!</Paragraph>
             <GreenButton primary={true} onClick={this.continue}>Get the next quest</GreenButton>
           </Center>
