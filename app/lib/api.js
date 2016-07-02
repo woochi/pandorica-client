@@ -4,7 +4,7 @@ import _ from 'lodash';
 function getAPIUrl() {
   const host = window.location.host.split(':')[0];
   if (host === 'app.ropecon.fi') {
-    return '${window.location.protocol}//api.ropecon.fi';
+    return `${window.location.protocol}//api.ropecon.fi`;
   } else {
     return `${window.location.protocol}//${host}:35005`;
   }
