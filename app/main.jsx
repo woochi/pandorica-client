@@ -84,7 +84,6 @@ render((
           </Route>
           <Route path="*" component={NotFoundPage} />
         </Route>
-
     </Router>
   </Provider>
   </MuiThemeProvider>

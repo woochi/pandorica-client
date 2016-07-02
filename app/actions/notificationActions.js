@@ -1,16 +1,13 @@
 import api from 'lib/api';
 import * as ACTIONS from 'constants/notificationActionTypes';
-
-export function loadStart() {
-  return {
-    type: ACTIONS.NOTIFICATIONS_LOAD_START
-  }
-}
+import Notification from 'models/notification';
+import {arrayOf} from 'normalizr';
+import {loadStart, loadEnd} from 'actions/loadingActions';
 
 export function success(response) {
   return {
     type: ACTIONS.NOTIFICATIONS_LOAD_SUCCESS,
-    notifications: response
+    response
   };
 }
 
@@ -23,26 +20,32 @@ export function error(response) {
 
 export function fetch() {
   return function(dispatch, getState) {
-    dispatch(loadStart());
-    return api.get('/notifications')
+    dispatch(loadStart('notifications'));
+    return api.getNormalized('/notifications', arrayOf(Notification))
       .then((response) => {
         dispatch(success(response));
       })
       .catch((response) => {
         dispatch(error(response));
+      })
+      .then(() => {
+        dispatch(loadEnd('notifications'));
       });
   };
 }
 
 export function get(id) {
   return function(dispatch, getState) {
-    dispatch(loadStart());
-    return api.get(`/notifications/${id}`)
+    dispatch(loadStart('notifications'));
+    return api.getNormalized(`/notifications/${id}`, Notification)
       .then((response) => {
         dispatch(success(response));
       })
       .catch((response) => {
         dispatch(error(response));
+      })
+      .then(() => {
+        dispatch(loadEnd('notifications'));
       });
   }
 }

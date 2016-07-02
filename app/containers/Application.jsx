@@ -17,6 +17,9 @@ import {Tabs} from 'components/Tabs';
 import {Tab} from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import api from 'lib/api';
+import {config} from 'lib/socket';
+
+config();
 
 const SelectableList = MakeSelectable(List);
 

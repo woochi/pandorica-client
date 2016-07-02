@@ -1,7 +1,8 @@
 import 'whatwg-fetch';
 import _ from 'lodash';
+import {normalize} from 'normalizr';
 
-function getAPIUrl() {
+export function getAPIUrl() {
   const host = window.location.host.split(':')[0];
   if (host === 'app.ropecon.fi') {
     return `${window.location.protocol}//api.ropecon.fi`;
@@ -11,8 +12,6 @@ function getAPIUrl() {
 }
 
 const API_URL = getAPIUrl();
-
-console.log(API_URL);
 
 function formatOptions(options) {
   var defaults = {
@@ -76,6 +75,13 @@ export function get(path, options = {}) {
   return request(path, options);
 }
 
+export function getNormalized(path, schema) {
+  return get(path, {}, schema).
+    then((data) => {
+      return normalize(data, schema);
+    });
+}
+
 export function post(path, data, options = {}) {
   return request(path, _.extend(options, {
     method: 'post',
@@ -123,5 +129,6 @@ export default {
   signUp,
   logIn,
   isLoggedIn,
-  logOut
+  logOut,
+  getNormalized
 };

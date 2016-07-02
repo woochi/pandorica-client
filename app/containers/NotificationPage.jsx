@@ -13,36 +13,41 @@ import _ from 'lodash';
 import {error} from 'actions/errorActions';
 
 class NotificationPage extends React.Component {
-  constructor() {
-    super();
-    this.state = {loading: true};
-  }
 
   componentWillMount() {
-    this.props.dispatch(notificationActions.get(this.props.params.id)).then(() => {
-      this.setState({loading: false});
-    });
+    this.props.dispatch(notificationActions.get(this.props.params.id));
   }
 
   render() {
+    console.log('PROPS', this.props);
     return (
       <Page>
-        <Loader loading={this.state.loading}>
-          <Center>
-            <Title>{this.props.notification.title}</Title>
-            <Paragraph>{this.props.notification.message}</Paragraph>
-            {this.getTaskContent()}
-            <Paragraph>
-              <GreyLink to="/app/notifications">Go back to notifications</GreyLink>
-            </Paragraph>
-          </Center>
+        <Loader loading={this.props.loading}>
+          {this.renderContent()}
         </Loader>
       </Page>
     );
   }
 
+  renderContent() {
+    if (this.props.loading) {
+      return <div/>;
+    } else {
+      return (
+        <Center>
+          <Title>{this.props.notification.get('title')}</Title>
+          <Paragraph>{this.props.notification.get('message')}</Paragraph>
+          {this.getTaskContent()}
+          <Paragraph>
+            <GreyLink to="/app/notifications">Go back to notifications</GreyLink>
+          </Paragraph>
+        </Center>
+      );
+    }
+  }
+
   getTaskContent = () => {
-    if (_.get(this.props.notification, ['task', 'completed'])) {
+    if (this.props.notification.getIn(['task', 'completed'])) {
       return <p className="green">You have already completed this task</p>;
     } else {
       return <TaskCodeForm onSubmit={this.checkCode}/>;
@@ -50,7 +55,6 @@ class NotificationPage extends React.Component {
   }
 
   checkCode = (code) => {
-    console.log('CODE', code);
     this.props.dispatch(taskActions.submit(code)).then(() => {
       this.props.router.push(`/app/tasks/${this.props.notification.task._id}/success`);
     }).catch((err) => {
@@ -59,8 +63,8 @@ class NotificationPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const notification = state.getIn(['notifications', 'data']).toJS();
+function mapStateToProps(state, props) {
+  const notification = state.getIn(['entities', 'notifications', props.params.id]);
   return {
     loading: !notification,
     notification: notification

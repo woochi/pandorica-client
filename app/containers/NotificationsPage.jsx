@@ -49,17 +49,16 @@ class NotificationsPage extends React.Component {
     const items = [];
     const notifications = this.props.notifications;
     let notification;
-    for (let i = 0; i < notifications.length; i++) {
-      notification = notifications[i];
+    notifications.forEach((notification, id) => {
       items.push(<ListItem
-        key={notification._id}
+        key={id}
         leftAvatar={<Avatar/>}
-        primaryText={`${primaryTextForNotificationType[notification.type]}: ${notification.title}`}
-        secondaryText={notification.message}
+        primaryText={`${primaryTextForNotificationType[notification.get('type')]}: ${notification.get('title')}`}
+        secondaryText={notification.get('message')}
         onClick={this.openNotification.bind(this, notification)}>
       </ListItem>);
-      items.push(<Divider key={i} inset={true}/>);
-    }
+      items.push(<Divider key={id + 'd'} inset={true}/>);
+    });
     return (
       <PullToRefresh onRefresh={this.onRefresh}>
         <Page>
@@ -70,7 +69,7 @@ class NotificationsPage extends React.Component {
   }
 
   openNotification(notification) {
-    this.props.router.push(`/app/notifications/${notification._id}`);
+    this.props.router.push(`/app/notifications/${notification.get('_id')}`);
   }
 
   onRefresh = (resolve, reject) => {
@@ -80,8 +79,8 @@ class NotificationsPage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    loading: state.get('notifications').get('loading'),
-    notifications: state.get('notifications').get('data').toJS()
+    loading: state.getIn(['loading', 'notifications']),
+    notifications: state.getIn(['entities', 'notifications'])
   };
 }
 
