@@ -33,8 +33,6 @@ const middleware = [
   promiseMiddleware()
 ];
 
-console.log('ENV', process.env.NODE_ENV);
-
 if (process.env.NODE_ENV === 'development') {
   middleware.push(logger);
 }
