@@ -43,7 +43,7 @@ class FactionSelectPage extends React.Component {
     const {
       fields: {faction}
     } = this.props;
-    const slideDeckState = {current: 0, horizontal: true, swipe: true};
+    const slideDeckState = {horizontal: true, swipe: true};
 
     if (isMobile) {
       const cards = [
@@ -57,34 +57,40 @@ class FactionSelectPage extends React.Component {
       return (
         <div className={styles.MobileContainer}>
           <div className={styles.MobileHeader}>
-            <Title style={{color: 'white'}}>Pick your side</Title>
-            <Subtitle>You will be contributing points towards the victory of your own team.</Subtitle>
+            <div className={styles.MobileHeaderContainer}>
+              <Title style={{color: 'white'}}>Pick your side</Title>
+              <Subtitle>You will be contributing points towards the victory of your own team.</Subtitle>
+            </div>
           </div>
-          <a className={styles.DeckNavPrev} onClick={() => deckIndex > 0 && faction.onChange(cards[deckIndex - 1].value)}>
-            <span className={styles.DeckNavIcon}><FontIcon className="material-icons" style={iconStyle} color={iconColor}>keyboard_arrow_left</FontIcon></span>
-          </a>
-          <a className={styles.DeckNavNext} onClick={() => deckIndex < cards.length - 1 && faction.onChange(cards[deckIndex + 1].value)}>
-            <span className={styles.DeckNavIcon}><FontIcon className="material-icons" style={iconStyle} color={iconColor}>keyboard_arrow_right</FontIcon></span>
-          </a>
-          <SlideDeck {...slideDeckState} current={deckIndex}>
-            {cards.map((card, i) =>
-              <SlideDeck.Slide key={i}>
-                <Center>
-                  <div className={styles.CardImageContainer}>
-                    <img src={card.image} className={styles.CardImage} width="100%"/>
-                  </div>
-                  <div className={styles.CardTitle}>{card.title}</div>
-                  <Subtitle className={styles.CardSubtitle}>{card.subtitle}</Subtitle>
-                  <GreenButton onClick={this.submitMobile.bind(card.value)}>{card.buttonLabel}</GreenButton>
-                </Center>
-              </SlideDeck.Slide>
-            )}
-          </SlideDeck>
-          <div className={styles.Indicators}>
-            {cards.map((card, index) => {
-              const className = index === deckIndex ? styles.IndicatorActive : styles.IndicatorNormal;
-              return <div className={className}></div>;
-            })}
+          <div className={styles.MobileContent}>
+            <a className={styles.DeckNavPrev} onClick={() => deckIndex > 0 && faction.onChange(cards[deckIndex - 1].value)}>
+              <span className={styles.DeckNavIcon}><FontIcon className="material-icons" style={iconStyle} color={iconColor}>keyboard_arrow_left</FontIcon></span>
+            </a>
+            <a className={styles.DeckNavNext} onClick={() => deckIndex < cards.length - 1 && faction.onChange(cards[deckIndex + 1].value)}>
+              <span className={styles.DeckNavIcon}><FontIcon className="material-icons" style={iconStyle} color={iconColor}>keyboard_arrow_right</FontIcon></span>
+            </a>
+            <SlideDeck {...slideDeckState} current={deckIndex}>
+              {cards.map((card, i) =>
+                <SlideDeck.Slide key={i}>
+                  <Center>
+                    <div className={styles.CardImageContainer}>
+                      <img src={card.image} className={styles.CardImage} width="100%"/>
+                    </div>
+                    <div className={styles.CardTitle}>{card.title}</div>
+                    <Subtitle className={styles.CardSubtitle}>{card.subtitle}</Subtitle>
+                    <GreenButton onClick={this.submitMobile.bind(card.value)}>{card.buttonLabel}</GreenButton>
+                  </Center>
+                </SlideDeck.Slide>
+              )}
+            </SlideDeck>
+          </div>
+          <div className={styles.MobileFooter}>
+            <div className={styles.Indicators}>
+              {cards.map((card, index) => {
+                const className = index === deckIndex ? styles.IndicatorActive : styles.IndicatorNormal;
+                return <div className={className}></div>;
+              })}
+            </div>
           </div>
         </div>
       );
@@ -102,7 +108,7 @@ class FactionSelectPage extends React.Component {
       return (
         <Center>
           <div className={styles.Header}>
-            <Title>Pick your side</Title>
+            <Title style={{color: 'white'}}>Pick your side</Title>
             <Subtitle>You will be contributing points towards the victory of your own team.</Subtitle>
           </div>
           <StaggeredMotion defaultStyles={defaultStyles} styles={calculateStyle}>
@@ -117,7 +123,7 @@ class FactionSelectPage extends React.Component {
                     onSelect={this.submit}
                     {...faction}
                     value={card.value}
-                    onMouseOver={this.select.bind(this, card.value)}
+                    onMouseOver={() => this.select(card.value)}
                     title={card.title} subtitle={card.subtitle}
                     buttonLabel={card.buttonLabel}
                     style={{opacity: 0.01 * style.offset, transform: `translateY(${initialOffset - style.offset}px)`}}/>
