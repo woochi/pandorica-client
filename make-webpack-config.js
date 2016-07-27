@@ -17,6 +17,9 @@ var plugins = [
     cache: false,
     template: path.join(__dirname, 'index.html'), // Load a custom template
     inject: 'body' // Inject all scripts into the body
+  }),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   })
 ];
 

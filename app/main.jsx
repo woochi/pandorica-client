@@ -97,7 +97,6 @@ render((
             <IndexRedirect to="home"/>
             <Route path="home" component={HomePage}/>
             <Route path="notifications" component={NotificationsPage}/>
-            <Route path="notifications/new" component={NotificationCreatePage} onEnter={requireAdmin}/>
             <Route path="notifications/:id" component={NotificationPage}/>
             <Route path="tasks" component={TasksPage}/>
             <Route path="tasks/:id/success" component={TaskSuccessPage} onEnter={test}/>

@@ -28,4 +28,15 @@ const reducer = combineReducers({
 
 const initialState = Immutable.fromJS({});
 
-export default createStore(reducer, initialState, applyMiddleware(thunk, logger, promiseMiddleware()));
+const middleware = [
+  thunk,
+  promiseMiddleware()
+];
+
+console.log('ENV', process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'development') {
+  middleware.push(logger);
+}
+
+export default createStore(reducer, initialState, applyMiddleware.apply(this, middleware));
