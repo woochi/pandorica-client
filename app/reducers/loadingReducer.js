@@ -12,7 +12,6 @@ function loadEnd(state, action) {
   const newState = state.merge({
     [action.payload]: false
   });
-  console.log('NEXT', newState.toJS());
   return newState;
 }
 

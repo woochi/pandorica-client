@@ -38,7 +38,6 @@ class NotificationsPage extends React.Component {
   }
 
   render() {
-    console.log('RENDER', this.props.loading);
     return (
       <PullToRefresh onRefresh={this.onRefresh}>
         <Page>
