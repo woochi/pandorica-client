@@ -7,6 +7,7 @@ import api from 'lib/api';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import FastClick from 'fastclick';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import Site from 'containers/Site';
 import Application from 'containers/Application';
@@ -63,8 +64,23 @@ function requireAdmin(nextState) {
   // TODO
 }
 
+const muiTheme = getMuiTheme({
+  fontFamily: 'Avenir',
+  palette: {
+    primary1Color: '#67d18a',
+    textColor: '#333'
+  },
+  button: {
+    height: 40
+  },
+  raisedButton: {
+    letterSpacing: '2px',
+    fontWeight: 'normal'
+  }
+});
+
 render((
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
   <Provider store={store}>
     <Router history={browserHistory}>
         <Route path="/">

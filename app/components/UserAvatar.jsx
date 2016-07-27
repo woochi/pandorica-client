@@ -9,7 +9,7 @@ class UserAvatar extends React.Component {
   }
 
   render() {
-    if (this.props.user.avatar) {
+    if (this.props.user.get('avatar')) {
       return <Avatar size={this.props.size} {...this.props}/>;
     } else {
       const iconStyle = {...this.props.style, fontSize: this.props.size, color: this.props.color};

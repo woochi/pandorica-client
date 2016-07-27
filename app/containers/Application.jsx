@@ -23,6 +23,9 @@ import { reduxForm } from 'redux-form';
 import {getFormState} from 'lib/immutableForm';
 import {connect as connectSocket} from 'lib/socket';
 import {isMobile} from 'lib/isMobile';
+import {getNormalized} from 'actions/apiActions';
+import User from 'models/user';
+import {fetch as fetchUser} from 'actions/userActions';
 
 connectSocket();
 
@@ -63,19 +66,15 @@ export default class Application extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: {},
       administrate: false
     };
   }
 
   componentDidMount() {
-    api.get('/me').then((user) => {
-      this.setState({user: user});
-    });
+    this.props.dispatch(fetchUser());
   }
 
 	render() {
-    console.log(this.props);
     const isMobileDevice = isMobile();
     const contentStyle = {};
     if (isMobileDevice && this.isInChat()) {
@@ -88,7 +87,7 @@ export default class Application extends React.Component {
     const toolbarStyle = {
       background: 'linear-gradient(to right, #4cb970, #5fa694)'
     };
-    console.log('RENDER', this.props.test);
+
 		return (
 			<div className={styles.Application}>
         {this.renderNav()}
@@ -210,8 +209,8 @@ export default class Application extends React.Component {
       <Drawer {...leftNavProps}>
         <SelectableList value={currentValue}>
           <ListItem
-            leftAvatar={<UserAvatar color="white" user={this.state.user}/>}
-            primaryText={this.state.user.name}
+            leftAvatar={<UserAvatar color="white" user={this.props.user}/>}
+            primaryText={this.props.user.get('name')}
             style={menuItemStyle}
             onClick={this.onNavigate.bind(this, '/app/profile')}/>
         </SelectableList>
@@ -256,8 +255,8 @@ export default withRouter(reduxForm({
   fields: ['administrate'],
   getFormState
 }, (state) => {
-  console.log(state.get('error'));
   return {
+    user: state.get('user'),
     appError: state.get('error'),
     initialValues: {
       administrate: false

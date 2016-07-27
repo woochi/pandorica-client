@@ -11,6 +11,7 @@ import tasksReducer from './reducers/tasksReducer';
 import {reducer as formReducer} from 'redux-form';
 import entitiesReducer from './reducers/entitiesReducer';
 import loadingReducer from './reducers/loadingReducer';
+import userReducer from './reducers/userReducer';
 
 const immutableFormReducer = (state = Immutable.fromJS({}), action) => Immutable.fromJS(formReducer(state.toJS(), action));
 
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   error: errorReducer,
   task: taskReducer,
   form: immutableFormReducer,
-  tasks: tasksReducer
+  tasks: tasksReducer,
+  user: userReducer
 });
 
 const initialState = Immutable.fromJS({});

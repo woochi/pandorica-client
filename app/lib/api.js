@@ -94,6 +94,18 @@ export function postNormalized(path, data, schema) {
     .then((data) => normalize(data, schema));
 }
 
+export function put(path, data, options = {}) {
+  return request(path, _.extend(options, {
+    method: 'put',
+    body: JSON.stringify(data)
+  }));
+}
+
+export function putNormalized(path, data, schema) {
+  return put(path, data)
+    .then((data) => normalize(data, schema));
+}
+
 export function signUp(data) {
   return post('/signup', data).then((response) => {
     persistAuthentication(data.email, data.password)
