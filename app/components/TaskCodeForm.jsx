@@ -2,6 +2,7 @@ import TextField from 'components/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Fieldset from 'components/Fieldset';
 import GreenButton from 'components/GreenButton';
+import {isMobile} from 'lib/isMobile';
 
 class TaskCodeForm extends React.Component {
   constructor() {
@@ -15,7 +16,7 @@ class TaskCodeForm extends React.Component {
         <Fieldset>
           <TextField
             fullWidth={true}
-            autoFocus={true}
+            autoFocus={isMobile()}
             placeholder="Type in the quest code"
             type="text"
             value={this.state.value}

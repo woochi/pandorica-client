@@ -16,7 +16,7 @@
   border: none;
   outline: none;
 
-  &:hover, &:focus {
+  &:hover {
     transform: scale(1.01, 1.01);
     box-shadow: 0 4px 8px rgba($black, 0.4);
   }

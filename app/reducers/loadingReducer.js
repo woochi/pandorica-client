@@ -9,9 +9,11 @@ function loadStart(state, action) {
 }
 
 function loadEnd(state, action) {
-  return state.merge({
+  const newState = state.merge({
     [action.payload]: false
   });
+  console.log('NEXT', newState.toJS());
+  return newState;
 }
 
 const initialState = Immutable.Map();

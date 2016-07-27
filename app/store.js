@@ -3,6 +3,7 @@ import { combineReducers } from 'redux-immutablejs';
 import Immutable from 'immutable';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
+import promiseMiddleware from 'redux-promise-middleware';
 
 import errorReducer from './reducers/errorReducer';
 import taskReducer from './reducers/taskReducer';
@@ -25,4 +26,4 @@ const reducer = combineReducers({
 
 const initialState = Immutable.fromJS({});
 
-export default createStore(reducer, initialState, applyMiddleware(thunk, logger));
+export default createStore(reducer, initialState, applyMiddleware(thunk, logger, promiseMiddleware()));

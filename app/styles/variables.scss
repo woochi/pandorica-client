@@ -39,12 +39,12 @@ $font-weight-bold: 500;
 $font-size-big: 24px;
 $font-size-huge: 32px;
 
-$base-font-size: 16px;
+$base-font-size: 15px;
 $base-line-height: 24px;
-$base-font-weight: $font-weight-light;
+$base-font-weight: $font-weight-normal;
 $base-font-family: $font-family-normal, Roboto, Helvetica, Arial, sans-serif;
 
-$base-font-color: $white;
+$base-font-color: $grey7;
 
 $link-color: $base-font-color;
 $link-color-hover: $base-font-color;
@@ -63,3 +63,10 @@ $breakpoints: (
 
 $medium-up: 'screen and (min-width: #{map-get($breakpoints, medium)})';
 $large-up: 'screen and (min-width: #{map-get($breakpoints, large)})';
+
+$drawer-background-color: darken($green, 5%);
+$drawer-gradient-color1: desaturate(darken($drawer-background-color, 5%), 10%);
+$drawer-gradient-color2: desaturate(darken(adjust-hue($drawer-background-color, 25%), 10%), 25%);
+
+$drawer-gradient: linear-gradient(140deg, $drawer-gradient-color1, $drawer-gradient-color2);
+$tabs-gradient: linear-gradient(to right, $drawer-gradient-color1, lighten($drawer-gradient-color2, 5%));

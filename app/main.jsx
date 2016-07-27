@@ -1,8 +1,7 @@
 import 'babel-polyfill';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, NotFoundRoute, Link, browserHistory, IndexRedirect, IndexPath } from 'react-router';
-import Socket from 'socket.io-client';
+import { Router, Route, IndexRoute, NotFoundRoute, Link, browserHistory, IndexRedirect, IndexPath, Redirect } from 'react-router';
 import store from './store';
 import api from 'lib/api';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -21,11 +20,12 @@ import NotificationPage from 'containers/NotificationPage';
 import TaskSuccessPage from 'containers/TaskSuccessPage';
 import IntroPage from 'containers/IntroPage';
 import FactionSelectPage from 'containers/FactionSelectPage';
-import SettingsPage from 'containers/SettingsPage';
+import ProfilePage from 'containers/ProfilePage';
+import NotificationCreatePage from 'containers/NotificationCreatePage';
+import ChatPage from 'containers/ChatPage';
+import ChatListPage from 'containers/ChatListPage';
 
 import 'styles/common.scss';
-
-//const socket = Socket('localhost:3000');
 
 const rootElement = document.getElementById('content');
 
@@ -59,15 +59,19 @@ function checkFactionSelected(nextState, replace) {
   }
 }
 
+function requireAdmin(nextState) {
+  // TODO
+}
+
 render((
   <MuiThemeProvider>
   <Provider store={store}>
     <Router history={browserHistory}>
         <Route path="/">
-          <Route component={Site}>
+          <Route component={Site} onEnter={checkAuth}>
             <IndexRoute component={IntroPage}/>
-            <Route path="login" onEnter={checkAuth} component={LoginPage}/>
-            <Route path="signup" onEnter={checkAuth}>
+            <Route path="login" component={LoginPage}/>
+            <Route path="signup">
               <IndexRedirect to="faction"/>
               <Route path="faction" component={FactionSelectPage}/>
               <Route path="complete" component={SignupPage} onEnter={checkFactionSelected}/>
@@ -77,10 +81,13 @@ render((
             <IndexRedirect to="home"/>
             <Route path="home" component={HomePage}/>
             <Route path="notifications" component={NotificationsPage}/>
+            <Route path="notifications/new" component={NotificationCreatePage} onEnter={requireAdmin}/>
             <Route path="notifications/:id" component={NotificationPage}/>
             <Route path="tasks" component={TasksPage}/>
             <Route path="tasks/:id/success" component={TaskSuccessPage} onEnter={test}/>
-            <Route path="settings" component={SettingsPage}/>
+            <Route path="chats" component={ChatListPage}/>
+            <Route path="chats/:room" component={ChatPage}/>
+            <Route path="profile" component={ProfilePage}/>
           </Route>
           <Route path="*" component={NotFoundPage} />
         </Route>

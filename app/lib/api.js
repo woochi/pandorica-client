@@ -76,8 +76,8 @@ export function get(path, options = {}) {
 }
 
 export function getNormalized(path, schema) {
-  return get(path, {}, schema).
-    then((data) => {
+  return get(path, {}, schema)
+    .then((data) => {
       return normalize(data, schema);
     });
 }
@@ -87,6 +87,11 @@ export function post(path, data, options = {}) {
     method: 'post',
     body: JSON.stringify(data)
   }));
+}
+
+export function postNormalized(path, data, schema) {
+  return post(path, data)
+    .then((data) => normalize(data, schema));
 }
 
 export function signUp(data) {
@@ -124,11 +129,13 @@ function destroy(path) {
 
 export default {
   get,
+  getAPIUrl,
   post,
   destroy,
   signUp,
   logIn,
   isLoggedIn,
   logOut,
-  getNormalized
+  getNormalized,
+  postNormalized
 };

@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'vertical-rhythm';
+@import 'reset-typography';
+
+.Chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: stretch;
+}
+
+.Header {
+  flex: 0 0 auto;
+}
+
+.Content {
+  display: flex;
+  flex: 1 1 auto;
+  overflow-y: auto;
+
+  > * {
+    height: auto;
+  }
+}
+
+.Footer {
+  flex: 0 0 auto;
+}
+
+.Input {
+  @include reset-typography();
+  width: 100%;
+  appearance: none;
+  background: $white;
+  border: none;
+  padding: rhythm(0.5, $offset: 1px) rhythm(1) rhythm(0.5);
+  outline: none;
+  color: $grey7;
+  border-top: 1px solid $grey2;
+}

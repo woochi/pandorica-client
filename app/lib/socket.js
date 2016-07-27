@@ -1,16 +1,18 @@
 import createSocket from 'socket.io-client';
 import api from './api';
-
-let socket;
+import {addMessage} from 'actions/messageActions';
+import store from 'store';
+import Faction from 'models/faction';
+import Message from 'models/message';
+import {normalize} from 'normalizr';
 
 export function connect() {
   const apiUrl = api.getAPIUrl();
-  socket = createSocket(apiUrl);
-  return socket;
+  return config(createSocket(apiUrl));
 }
 
-export function config() {
-
+export function config(socket) {
+  socket.on('message', (message) => {
+    store.dispatch(addMessage(normalize(message, Message)));
+  });
 }
-
-export default socket;

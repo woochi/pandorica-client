@@ -18,7 +18,7 @@ $input-border-color: $white;
   padding: rhythm(0.5) 0;
   border: none;
   outline: none;
-  border-bottom: 1px solid $white5;
+  border-bottom: 1px solid $grey3;
   text-align: center;
 
   &::placeholder {
@@ -36,6 +36,6 @@ $input-border-color: $white;
 }
 
 .input:focus + .underline {
-  background: $white;
+  background: $green;
   transform: scaleX(1);
 }

@@ -36,6 +36,13 @@
   color: $green !important;
 }
 
+.Drawer {
+  $background: darken($green, 5%);
+  box-shadow: none !important;
+  background: $drawer-gradient !important;
+  border-right: 1px solid $green6;
+}
+
 .DrawerHeader {
   padding: rhythm(1);
 }

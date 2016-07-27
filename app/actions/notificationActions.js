@@ -3,6 +3,7 @@ import * as ACTIONS from 'constants/notificationActionTypes';
 import Notification from 'models/notification';
 import {arrayOf} from 'normalizr';
 import {loadStart, loadEnd} from 'actions/loadingActions';
+import {createAction} from 'redux-actions';
 
 export function success(response) {
   return {
@@ -23,7 +24,7 @@ export function fetch() {
     dispatch(loadStart('notifications'));
     return api.getNormalized('/notifications', arrayOf(Notification))
       .then((response) => {
-        dispatch(success(response));
+        dispatch(createAction('NOTIFICATIONS_LOAD_SUCCESS')(response));
       })
       .catch((response) => {
         dispatch(error(response));

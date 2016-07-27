@@ -1,5 +1,9 @@
 import api from 'lib/api';
 import {error} from 'actions/errorActions';
+import {loadStart as fetchLoadStart, loadEnd as fetchLoadEnd} from 'actions/loadingActions';
+import {arrayOf} from 'normalizr';
+import Task from 'models/task';
+import {createAction} from 'redux-actions';
 
 export function add(task) {
   return {
@@ -31,6 +35,22 @@ export function ok() {
   return {
     type: 'TASK_OK'
   };
+}
+
+export function fetch() {
+  return function(dispatch, getState) {
+    dispatch(fetchLoadStart('tasks'));
+    return api.getNormalized(`/tasks`, arrayOf(Task))
+      .then((response) => {
+        dispatch(createAction('TASK_FETCH_SUCCESS')(response));
+      })
+      .catch((err) => {
+        dispatch(error(err));
+      })
+      .then(() => {
+        dispatch(fetchLoadEnd('tasks'));
+      });
+  }
 }
 
 export function get(id) {

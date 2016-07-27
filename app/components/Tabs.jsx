@@ -6,7 +6,7 @@ import classnames from 'classnames';
 export class Tabs extends React.Component {
   render() {
     const inkBarStyle = {
-      display: 'none'
+      backgroundColor: '#53CB7B'
     };
     const className = classnames(styles.Tabs, this.props.className);
     return (

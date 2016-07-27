@@ -11,15 +11,16 @@ import * as taskActions from 'actions/taskActions';
 import TaskCodeForm from 'components/TaskCodeForm';
 import _ from 'lodash';
 import {error} from 'actions/errorActions';
+import Notification from 'models/notification';
+import {getNormalized} from 'actions/apiActions';
 
 class NotificationPage extends React.Component {
 
-  componentWillMount() {
-    this.props.dispatch(notificationActions.get(this.props.params.id));
+  componentDidMount() {
+    this.props.dispatch(getNormalized(`/notifications/${this.props.params.id}`, Notification));
   }
 
   render() {
-    console.log('PROPS', this.props);
     return (
       <Page>
         <Loader loading={this.props.loading}>

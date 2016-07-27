@@ -16,38 +16,62 @@ import 'styles/pull-to-refresh.scss';
 import Center from 'components/Center';
 import Title from 'components/Title';
 import Paragraph from 'components/Paragraph';
+import PrimaryButton from 'components/PrimaryButton';
 
 const primaryTextForNotificationType = {
   [NOTIFICATION_TYPES.TASK]: 'New Task'
 }
 
-function renderContent(items) {
-  if (items.length) {
-    return (
-      <PaddedContainer>
-        <Paper>
-          <List>
-            {items}
-          </List>
-        </Paper>
-      </PaddedContainer>
-    );
-  } else {
-    return <Center>
-      <Title>No notifications have been published yet.</Title>
-      <Paragraph>Stay on the lookout closer to the event start time.</Paragraph>
-    </Center>;
-  }
-}
-
 class NotificationsPage extends React.Component {
-  componentWillMount() {
-    this.props.dispatch(notificationActions.fetch());
+  constructor() {
+    super();
+    this.state = {
+      error: false
+    };
+  }
+
+  componentDidMount() {
+    this.props.dispatch(notificationActions.fetch())
+      .catch(() => {
+        this.setState({error: true})
+      });
   }
 
   render() {
+    console.log('RENDER', this.props.loading);
+    return (
+      <PullToRefresh onRefresh={this.onRefresh}>
+        <Page>
+          <Loader loading={this.props.loading}>
+            <div>
+              {this.renderContent()}
+            </div>
+          </Loader>
+        </Page>
+      </PullToRefresh>
+    )
+  }
+
+  renderContent() {
+    if (this.props.notifications.size) {
+      return (
+        <PaddedContainer>
+          <List>
+            {this.renderNotifications()}
+          </List>
+        </PaddedContainer>
+      );
+    } else {
+      return <Center>
+        <Title>No notifications have been published yet.</Title>
+        <Paragraph>Stay on the lookout closer to the event start time.</Paragraph>
+      </Center>;
+    }
+  }
+
+  renderNotifications() {
     const items = [];
-    const notifications = this.props.notifications;
+    const {notifications} = this.props;
     let notification;
     notifications.forEach((notification, id) => {
       items.push(<ListItem
@@ -59,13 +83,7 @@ class NotificationsPage extends React.Component {
       </ListItem>);
       items.push(<Divider key={id + 'd'} inset={true}/>);
     });
-    return (
-      <PullToRefresh onRefresh={this.onRefresh}>
-        <Page>
-          <Loader loading={this.props.loading}>{renderContent(items)}</Loader>
-        </Page>
-      </PullToRefresh>
-    )
+    return items;
   }
 
   openNotification(notification) {
@@ -80,7 +98,8 @@ class NotificationsPage extends React.Component {
 function mapStateToProps(state) {
   return {
     loading: state.getIn(['loading', 'notifications']),
-    notifications: state.getIn(['entities', 'notifications'])
+    notifications: state.getIn(['entities', 'notifications']),
+    administrate: state.getIn(['form', 'settings', 'administrate', 'value'])
   };
 }
 

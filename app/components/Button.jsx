@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Button.scss';
 import classnames from 'classnames';
 
-class GreenButton extends React.Component {
+class Button extends React.Component {
   render() {
     const className = classnames(styles.normal, this.props.className, {
       [styles.fullWidth]: this.props.fullWidth
@@ -11,5 +11,5 @@ class GreenButton extends React.Component {
   }
 }
 
-export default GreenButton;
+export default Button;
 

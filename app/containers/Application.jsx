@@ -3,36 +3,68 @@ import { RouteHandler } from "react-router";
 import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import { Link, withRouter } from 'react-router';
+import UserAvatar from 'components/UserAvatar';
 import Avatar from 'material-ui/Avatar';
 import styles from "./Application.scss";
 import {List, ListItem, MakeSelectable} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader';
+import {Divider as MaterialDivider, Toolbar, ToolbarTitle, ToolbarGroup} from 'material-ui';
 import {connect} from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 import {error} from 'actions/errorActions';
-import MobileDetect from 'mobile-detect';
 import Page from 'components/Page';
 import NavTabs from 'containers/NavTabs';
 import {Tabs} from 'components/Tabs';
 import {Tab} from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import api from 'lib/api';
-import {config} from 'lib/socket';
+import Toggle from 'material-ui/Toggle';
+import { reduxForm } from 'redux-form';
+import {getFormState} from 'lib/immutableForm';
+import {connect as connectSocket} from 'lib/socket';
+import {isMobile} from 'lib/isMobile';
 
-config();
+connectSocket();
 
 const SelectableList = MakeSelectable(List);
 
-const md = new MobileDetect(window.navigator.userAgent);
-const isMobile = !!md.mobile();
-
 const sidebarWidth = 260;
+
+const Divider = () => (
+  <MaterialDivider style={{backgroundColor: 'rgba(255,255,255,0.2)'}}/>
+);
+
+const menuItemStyle = {
+  fontFamily: 'Avenir',
+  fontSize: 15,
+  color: 'rgba(255, 255, 255, 1)'
+};
+const menuIconStyle = {
+  color: 'rgba(255,255,255,1)'
+};
+
+const profileLink = {
+  name: 'Profile',
+  url: '/app/profile',
+  icon: 'account_circle'
+}
+const pageLinks = [
+  {name: 'Leaderboard', url: '/app/home', icon: 'whatshot'},
+  {name: 'Notifications', url: '/app/notifications', icon: 'notifications'},
+  {name: 'Quests', url: '/app/tasks', icon: 'assignment_turned_in'}
+];
+const chatLinks = [
+  {name: 'Global', url: '/app/chats/neutral', icon: 'public'},
+  {name: 'Order', url: '/app/chats/order', icon: 'security'},
+  {name: 'Chaos', url: '/app/chats/chaos', icon: 'flare'}
+];
 
 export default class Application extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: {}
+      user: {},
+      administrate: false
     };
   }
 
@@ -43,83 +75,160 @@ export default class Application extends React.Component {
   }
 
 	render() {
+    console.log(this.props);
+    const isMobileDevice = isMobile();
     const contentStyle = {};
-    if (isMobile) {
+    if (isMobileDevice && this.isInChat()) {
+      contentStyle['top'] = 49;
+    } else if (isMobileDevice) {
       contentStyle['bottom'] = 49;
     } else {
       contentStyle['left'] = sidebarWidth;
     }
+    const toolbarStyle = {
+      background: 'linear-gradient(to right, #4cb970, #5fa694)'
+    };
+    console.log('RENDER', this.props.test);
 		return (
 			<div className={styles.Application}>
         {this.renderNav()}
-        <div className={styles.Content} style={contentStyle}>
-          {this.props.children}
-          <Snackbar
-            style={{left: sidebarWidth}}
-            open={!!this.props.error}
-            message={this.props.error}
-            autoHideDuration={3000}
-            onRequestClose={this.onCloseSnackbar}
-          />
+        <div className={styles.Header}>
+          {isMobileDevice && this.props.location.pathname.includes('chats/') &&
+            <Toolbar style={toolbarStyle}>
+              <ToolbarGroup firstChild={true}>
+                <FontIcon className="material-icons" onClick={() => this.props.router.push('/app/chats')}>keyboard_arrow_left</FontIcon>
+              </ToolbarGroup>
+              <ToolbarGroup>
+                <ToolbarTitle text={_.upperFirst(_.last(this.props.location.pathname.split('/')))}/>
+              </ToolbarGroup>
+            </Toolbar>}
+          <div className={styles.Content} style={contentStyle}>
+            {this.props.children}
+          </div>
+          {this.props.appError &&
+            <Snackbar
+              style={this.getSnackbarStyle()}
+              open={!!this.props.appError}
+              message={this.props.appError}
+              autoHideDuration={3000}
+              onRequestClose={this.onCloseSnackbar}
+              />
+          }
         </div>
 			</div>
 		);
 	}
 
-  renderNav = () => {
-    const links = [
-      {name: 'Leaderboard', url: '/app/home', icon: 'whatshot'},
-      {name: 'Notifications', url: '/app/notifications', icon: 'notifications'},
-      {name: 'Quests', url: '/app/tasks', icon: 'assignment_turned_in'},
-      //{name: 'Help', url: '/app/settings', icon: 'info'}
-    ];
+  getSnackbarStyle() {
+    if (isMobile()) {
+      return {bottom: 49};
+    } else {
+      return {left: sidebarWidth};
+    }
+  }
 
-    const tabStyles = {
-      fontSize: 10
-    };
-    if (isMobile) {
+  renderNavLink = (link) => {
+    if (isMobile()) {
+      return this.renderMobileNavLink(link);
+    } else {
+      return this.renderDesktopNavLink(link)
+    }
+  }
+
+  renderDesktopNavLink = (link) => {
+    return <ListItem
+      key={link.name}
+      value={link.url}
+      style={menuItemStyle}
+      leftIcon={<FontIcon className="material-icons" style={menuIconStyle}>{link.icon}</FontIcon>}
+      onClick={this.onNavigate.bind(this, link.url)}>
+        {link.name}
+    </ListItem>;
+  }
+
+  renderMobileNavLink = (link) => {
+    return <Tab
+      key={link.url}
+      value={link.url}
+      icon={<FontIcon className="material-icons">{link.icon}</FontIcon>}
+      className={this.props.location.pathname.includes(link.url) ? styles.NavTabActive : styles.NavTab}/>;
+  }
+
+  renderNav = () => {
+    if (isMobile()) {
+      return this.renderMobileNav();
+    } else {
+      return this.renderDesktopNav();
+    }
+  }
+
+  renderMobileNav = () => {
+    if (!this.isInChat()) {
+      const discussionsLink = {
+        name: 'Discussions',
+        url: '/app/chats',
+        icon: 'chat'
+      };
+      const tabs = pageLinks.map(this.renderMobileNavLink)
+        .concat(this.renderMobileNavLink(profileLink))
+        .concat(this.renderMobileNavLink(discussionsLink));
+
       return (
         <Tabs value={this.props.location.pathname} className={styles.NavTabs} onChange={this.onNavigateMobile}>
-          {links.map((link) =>
-            <Tab
-              key={link.url}
-              value={link.url}
-              icon={<FontIcon className="material-icons">{link.icon}</FontIcon>}
-              className={this.props.location.pathname.includes(link.url) ? styles.NavTabActive : styles.NavTab}/>
-          )}
+          {tabs}
         </Tabs>
       );
-    } else {
-      const menuItemStyle = {
-        fontFamily: 'Avenir'
-      };
-      const leftNavProps = {
-        docked: !isMobile,
-        width: sidebarWidth,
-        swipeAreaWidth: null
-      };
-      return (
-        <Drawer {...leftNavProps}>
-          <List><ListItem leftAvatar={<Avatar/>} primaryText={this.state.user.name} disabled={true} style={menuItemStyle}></ListItem></List>
-          <Divider/>
-          <SelectableList value={this.props.location.pathname.split('/').slice(0, 3).join('/')} onChange={this.onNavigate}>
-            {links.map((link) =>
-              <ListItem
-                key={link.name}
-                value={link.url}
-                style={menuItemStyle}
-                leftIcon={<FontIcon className="material-icons">{link.icon}</FontIcon>}>
-                  {link.name}
-              </ListItem>
-            )}
-          </SelectableList>
-          <div className={styles.DrawerFooter}>
-            <Divider/>
-            <ListItem onTouchTap={this.logout} style={menuItemStyle} leftIcon={<FontIcon className="material-icons">lock</FontIcon>}>Sign out</ListItem>
-          </div>
-        </Drawer>
-      );
     }
+    return [];
+  }
+
+  renderDesktopNav() {
+    const {fields} = this.props;
+    const subheaderStyle = {
+      ...menuItemStyle,
+      fontSize: 14,
+      color: 'rgba(255,255,255,1)'
+    };
+    const leftNavProps = {
+      docked: !isMobile(),
+      width: sidebarWidth,
+      swipeAreaWidth: null,
+      containerClassName: styles.Drawer
+    };
+    const pathName = this.props.location.pathname;
+    let currentValue;
+    if (this.isInChat()) {
+      currentValue = pathName;
+    } else {
+      currentValue = this.props.location.pathname.split('/').slice(0, 3).join('/');
+    }
+    let links = [];
+    links = links.concat(pageLinks.map(this.renderDesktopNavLink));
+    links = links.concat([<Divider/>, <Subheader style={subheaderStyle}>Discussions</Subheader>]);
+    links = links.concat(chatLinks.map(this.renderDesktopNavLink));
+    return (
+      <Drawer {...leftNavProps}>
+        <SelectableList value={currentValue}>
+          <ListItem
+            leftAvatar={<UserAvatar color="white" user={this.state.user}/>}
+            primaryText={this.state.user.name}
+            style={menuItemStyle}
+            onClick={this.onNavigate.bind(this, '/app/profile')}/>
+        </SelectableList>
+        <Divider/>
+        <SelectableList value={currentValue}>
+          {links}
+        </SelectableList>
+        <div className={styles.DrawerFooter}>
+          <Divider/>
+          <ListItem onTouchTap={this.logout} style={menuItemStyle} leftIcon={<FontIcon className="material-icons" style={menuIconStyle}>lock</FontIcon>}>Sign out</ListItem>
+        </div>
+      </Drawer>
+    );
+  }
+
+  isInChat() {
+    return this.props.location.pathname.includes('/chats/');
   }
 
   logout = () => {
@@ -132,7 +241,8 @@ export default class Application extends React.Component {
     this.props.dispatch(error(false));
   }
 
-  onNavigate = (event, path) => {
+  onNavigate = (path, event) => {
+    event.stopPropagation();
     this.onNavigateMobile(path);
   };
 
@@ -141,10 +251,16 @@ export default class Application extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
+export default withRouter(reduxForm({
+  form: 'settings',
+  fields: ['administrate'],
+  getFormState
+}, (state) => {
+  console.log(state.get('error'));
   return {
-    error: state.get('error')
+    appError: state.get('error'),
+    initialValues: {
+      administrate: false
+    }
   };
-}
-
-export default connect(mapStateToProps)(withRouter(Application));
+})(Application));
