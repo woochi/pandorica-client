@@ -1,5 +1,5 @@
 import {Schema, arrayOf} from 'normalizr';
-import Message from './Message';
+import Message from './message';
 
 const Faction = new Schema('factions', {
   idAttribute: 'name'
