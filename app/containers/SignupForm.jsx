@@ -22,13 +22,13 @@ class SignupForm extends React.Component {
     } = this.props;
 
     return (
-      <form>
+      <form onSubmit={handleSubmit}>
         <Fieldset>
           <TextField ref="name" type="text" hintText="Username" fullWidth={true} {...name}/>
           <TextField type="email" hintText="Email" fullWidth={true} {...email}/>
           <TextField type="password" hintText="Password" fullWidth={true} {...password}/>
         </Fieldset>
-        <PrimaryButton onClick={this.props.handleSubmit}>Join the fight!</PrimaryButton>
+        <PrimaryButton>Join the fight!</PrimaryButton>
       </form>
     );
   }
