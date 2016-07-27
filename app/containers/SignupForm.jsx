@@ -7,14 +7,9 @@ import Fieldset from 'components/Fieldset';
 import {getFormState} from 'lib/immutableForm';
 import PrimaryButton from 'components/PrimaryButton';
 
-export const fields = ['name', 'email', 'password'];
+export const fields = ['name', 'email', 'password', 'faction'];
 
 class SignupForm extends React.Component {
-  static propTypes = {
-    fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func.isRequired
-  };
-
   render() {
     const {
       fields: {name, email, password},

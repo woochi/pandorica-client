@@ -31,9 +31,7 @@ class SignupPage extends React.Component {
   }
 
   onSubmit = (values) => {
-    const faction = store.getState().getIn(['form', 'signup', 'faction', 'value']);
-    console.log('SUBMIT', faction);
-    return api.signUp({...values, faction: faction}).then((response) => {
+    return api.signUp(values).then((response) => {
       this.props.history.replace('/app');
     }).catch((error) => {
       console.log(error);
