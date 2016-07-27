@@ -39,11 +39,13 @@
 .title {
   text-transform: uppercase;
   letter-spacing: 8px;
-  font-weight: $font-weight-normal
+  font-weight: $font-weight-normal;
+  color: $white;
 }
 
 .subtitle {
   @include font-size(14px);
+  color: $white;
 }
 
 @media #{$medium-up} {

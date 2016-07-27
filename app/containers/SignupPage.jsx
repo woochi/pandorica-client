@@ -20,7 +20,7 @@ class SignupPage extends React.Component {
       <Page>
         <Center>
           <Logo/>
-          <Title>You are joining the ranks of <Link to="/signup/faction">{humanizeFaction(faction)}</Link></Title>
+          <Title style={{color: 'white'}}>You are joining the ranks of {humanizeFaction(faction)}</Title>
           <Subtitle>Your email will only be used for identification. It will not be visible to other users or staff.</Subtitle>
           <SignupForm onSubmit={this.onSubmit}></SignupForm>
           <Paragraph><GreyLink to="/login">Already have an account? Log in.</GreyLink></Paragraph>

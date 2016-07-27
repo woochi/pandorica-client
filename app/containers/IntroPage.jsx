@@ -15,9 +15,9 @@ class IntroPage extends React.Component {
       <Page>
         <Center>
           <Logo/>
-          <SuperTitle>Ropecon treasure hunt</SuperTitle>
-          <HeroTitle>Join the fight for order or chaos!</HeroTitle>
-          <Paragraph>
+          <SuperTitle style={{color: 'white'}}>Ropecon treasure hunt</SuperTitle>
+          <HeroTitle style={{color: 'white'}}>Join the fight for order or chaos!</HeroTitle>
+          <Paragraph style={{color: 'white'}}>
             Complete quests, collect points and lead your faction to a glorious victory.
             The winning faction will be crowned and rewarded in the Ropecon closing ceremony.
           </Paragraph>

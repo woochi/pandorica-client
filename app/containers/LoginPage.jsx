@@ -15,7 +15,7 @@ class LoginPage extends React.Component {
       <Page>
         <Center>
           <Logo/>
-          <Title>Welcome back</Title>
+          <Title style={{color: 'white'}}>Welcome back</Title>
           <Subtitle>The fight still continues. Log in and get back to your quests.</Subtitle>
           <LoginForm onSubmit={this.onSubmit}></LoginForm>
           <Paragraph><GreyLink to="/signup">Don't have an account yet? Sign up.</GreyLink></Paragraph>

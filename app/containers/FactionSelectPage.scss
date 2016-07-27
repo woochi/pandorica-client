@@ -7,8 +7,16 @@
 }
 
 .MobileHeader {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: rhythm(1);
   text-align: center;
   padding: 0 rhythm(1);
+}
+
+.CardImageContainer {
+  padding-top: rhythm(4);
 }
 
 .CardImage {
@@ -23,8 +31,73 @@
   letter-spacing: 8px;
   font-weight: $font-weight-normal;
   margin: rhythm(0.5) 0;
+  color: $white;
 }
 
 .CardSubtitle {
   @include font-size(14px);
+}
+
+.DeckNav {
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.DeckNavLink {
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  color: $white;
+  height: 100%;
+  width: 15%;
+  z-index: 999;
+}
+
+.DeckNavPrev {
+  composes: DeckNavLink;
+  left: 0
+}
+
+.DeckNavNext {
+  composes: DeckNavLink;
+  right: 0;
+}
+
+.DeckNavIcon {
+  position: absolute;
+  top: 50%;
+  margin: rhythm(-1.5) rhythm(0.5) 0;
+  border: 2px solid $white5;
+  background: $site-background;
+  border-radius: 50%;
+}
+
+.Indicators {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: rhythm(0.5) 0;
+}
+
+.Indicator {
+  display: inline-block;
+  margin: 0 rhythm(0.2);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.IndicatorNormal {
+  composes: Indicator;
+  background: $grey5;
+}
+
+.IndicatorActive {
+  composes: Indicator;
+  background: $white7;
 }

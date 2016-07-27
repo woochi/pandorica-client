@@ -19,6 +19,7 @@ import MobileDetect from 'mobile-detect';
 import SlideDeck from 'react-slide-deck';
 import GreenButton from 'components/GreenButton';
 import Subtitle from 'components/Subtitle';
+import {FontIcon} from 'material-ui';
 
 const md = new MobileDetect(window.navigator.userAgent);
 const isMobile = !!md.mobile();
@@ -35,27 +36,40 @@ class FactionSelectPage extends React.Component {
   }
 
   getContent = () => {
-    const cards = [
-      {value: 'ORDER', image: orderImage, title: "Order", subtitle: "Collect points to maintain order.", buttonLabel: "Maintain order"},
-      {value: 'NEUTRAL', image: neutralImage, title: "Balance", subtitle: "Collect points for fun.", buttonLabel: "Seek balance"},
-      {value: 'CHAOS', image: chaosImage, title: "Chaos", subtitle: "Collect points to cause chaos.", buttonLabel: "Create chaos"}
-    ];
+    const orderCard = {value: 'ORDER', image: orderImage, title: "Order", subtitle: "Collect points to maintain order.", buttonLabel: "Maintain order"};
+    const neutralCard = {value: 'NEUTRAL', image: neutralImage, title: "Balance", subtitle: "Collect points for fun.", buttonLabel: "Seek balance"};
+    const chaosCard = {value: 'CHAOS', image: chaosImage, title: "Chaos", subtitle: "Collect points to cause chaos.", buttonLabel: "Create chaos"};
+
     const {
       fields: {faction}
     } = this.props;
     const slideDeckState = {current: 0, horizontal: true, swipe: true};
 
     if (isMobile) {
+      const cards = [
+        neutralCard,
+        orderCard,
+        chaosCard
+      ];
+      const deckIndex = cards.findIndex((card) => card.value === faction.value);
+      const iconStyle = {display: 'block', fontSize: 30, width: 30, height: 30};
+      const iconColor = "white";
       return (
         <div className={styles.MobileContainer}>
-          <SlideDeck {...slideDeckState}>
+          <div className={styles.MobileHeader}>
+            <Title style={{color: 'white'}}>Pick your side</Title>
+            <Subtitle>You will be contributing points towards the victory of your own team.</Subtitle>
+          </div>
+          <a className={styles.DeckNavPrev} onClick={() => deckIndex > 0 && faction.onChange(cards[deckIndex - 1].value)}>
+            <span className={styles.DeckNavIcon}><FontIcon className="material-icons" style={iconStyle} color={iconColor}>keyboard_arrow_left</FontIcon></span>
+          </a>
+          <a className={styles.DeckNavNext} onClick={() => deckIndex < cards.length - 1 && faction.onChange(cards[deckIndex + 1].value)}>
+            <span className={styles.DeckNavIcon}><FontIcon className="material-icons" style={iconStyle} color={iconColor}>keyboard_arrow_right</FontIcon></span>
+          </a>
+          <SlideDeck {...slideDeckState} current={deckIndex}>
             {cards.map((card, i) =>
               <SlideDeck.Slide key={i}>
                 <Center>
-                  <div className={styles.MobileHeader}>
-                    <Title>Pick your side</Title>
-                    <Subtitle>You will be contributing points towards the victory of your own team.</Subtitle>
-                  </div>
                   <div className={styles.CardImageContainer}>
                     <img src={card.image} className={styles.CardImage} width="100%"/>
                   </div>
@@ -66,9 +80,20 @@ class FactionSelectPage extends React.Component {
               </SlideDeck.Slide>
             )}
           </SlideDeck>
+          <div className={styles.Indicators}>
+            {cards.map((card, index) => {
+              const className = index === deckIndex ? styles.IndicatorActive : styles.IndicatorNormal;
+              return <div className={className}></div>;
+            })}
+          </div>
         </div>
       );
     } else {
+      const cards = [
+        orderCard,
+        neutralCard,
+        chaosCard
+      ];
       const initialOffset = 100;
       const defaultStyles = cards.map(test => {return {offset: 0}});
       const calculateStyle = previousStyles => previousStyles.map((_, i) => {
@@ -113,8 +138,7 @@ class FactionSelectPage extends React.Component {
     this.props.router.push('/signup/complete');
   }
 
-  submitMobile = (event, value) => {
-    this.select(value);
+  submitMobile = (event) => {
     this.submit();
   }
 }
