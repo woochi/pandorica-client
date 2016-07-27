@@ -76,7 +76,7 @@ const muiTheme = getMuiTheme({
   raisedButton: {
     letterSpacing: '2px',
     fontWeight: 'normal'
-  }
+  },
 });
 
 render((

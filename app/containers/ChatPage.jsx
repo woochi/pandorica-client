@@ -91,7 +91,11 @@ class ChatPage extends React.Component {
         </Center>
       );
     } else if (!this.props.messages.size) {
-      return <Center>Empty</Center>;
+      return <Center>
+        <FontIcon className="material-icons">chat</FontIcon>
+        <Title>Break the silence!</Title>
+        <Paragraph>Use the chat to discuss tactics with your team, share quest tips and plan meetups.<br/> Always remember proper manners towards your fellow players.</Paragraph>
+      </Center>;
     } else {
       return <MessageList messages={this.props.messages}/>;
     }
