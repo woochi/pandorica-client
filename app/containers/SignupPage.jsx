@@ -16,6 +16,7 @@ import Paragraph from 'components/Paragraph';
 class SignupPage extends React.Component {
   render() {
     const faction = store.getState().getIn(['form', 'signup', 'faction', 'value']);
+    console.log('SIGNUP PAGE', faction);
     return (
       <Page>
         <Center>
@@ -31,7 +32,8 @@ class SignupPage extends React.Component {
 
   onSubmit = (values) => {
     const faction = store.getState().getIn(['form', 'signup', 'faction', 'value']);
-    return api.signUp({faction: faction, ...values}).then((response) => {
+    console.log('SUBMIT', faction);
+    return api.signUp({...values, faction: faction}).then((response) => {
       this.props.history.replace('/app');
     }).catch((error) => {
       console.log(error);
