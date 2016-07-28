@@ -3,14 +3,13 @@ import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import {Page, PaddedContainer} from 'components/Page';
-import * as notificationActions from 'actions/notificationActions';
+import * as questActions from 'actions/questActions';
 import {connect} from 'react-redux';
-import {NOTIFICATION_TYPES} from 'enums';
 import Placeholder from 'components/Placeholder';
 import Loader from 'components/Loader';
 import {withRouter} from 'react-router';
 import Paper from 'material-ui/Paper';
-import styles from './NotificationsPage.scss';
+import styles from './QuestsPage.scss';
 import PullToRefresh from 'react-pull-to-refresh';
 import 'styles/pull-to-refresh.scss';
 import Center from 'components/Center';
@@ -18,11 +17,7 @@ import Title from 'components/Title';
 import Paragraph from 'components/Paragraph';
 import PrimaryButton from 'components/PrimaryButton';
 
-const primaryTextForNotificationType = {
-  [NOTIFICATION_TYPES.TASK]: 'New Task'
-}
-
-class NotificationsPage extends React.Component {
+class QuestsPage extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -31,7 +26,7 @@ class NotificationsPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(notificationActions.fetch())
+    this.props.dispatch(questActions.fetch())
       .catch(() => {
         this.setState({error: true})
       });
@@ -52,54 +47,54 @@ class NotificationsPage extends React.Component {
   }
 
   renderContent() {
-    if (this.props.notifications.size) {
+    if (this.props.quests.size) {
       return (
         <PaddedContainer>
           <List>
-            {this.renderNotifications()}
+            {this.renderQuests()}
           </List>
         </PaddedContainer>
       );
     } else {
       return <Center>
-        <Title>No notifications have been published yet.</Title>
+        <Title>No quests have been published yet.</Title>
         <Paragraph>Stay on the lookout closer to the event start time.</Paragraph>
       </Center>;
     }
   }
 
-  renderNotifications() {
+  renderQuests() {
     const items = [];
-    const {notifications} = this.props;
-    let notification;
-    notifications.forEach((notification, id) => {
+    const {quests} = this.props;
+    let quest;
+    quests.forEach((quest, id) => {
       items.push(<ListItem
         key={id}
         leftAvatar={<Avatar/>}
-        primaryText={`${primaryTextForNotificationType[notification.get('type')]}: ${notification.get('title')}`}
-        secondaryText={notification.get('message')}
-        onClick={this.openNotification.bind(this, notification)}>
+        primaryText={`${quest.get('title')}`}
+        secondaryText={quest.get('description')}
+        onClick={this.openQuest.bind(this, quest)}>
       </ListItem>);
       items.push(<Divider key={id + 'd'} inset={true}/>);
     });
     return items;
   }
 
-  openNotification(notification) {
-    this.props.router.push(`/app/notifications/${notification.get('_id')}`);
+  openQuest(quest) {
+    this.props.router.push(`/app/quests/${quest.get('_id')}`);
   }
 
   onRefresh = (resolve, reject) => {
-    this.props.dispatch(notificationActions.fetch()).then(resolve).catch(reject);
+    this.props.dispatch(questActions.fetch()).then(resolve).catch(reject);
   }
 }
 
 function mapStateToProps(state) {
   return {
-    loading: state.getIn(['loading', 'notifications']),
-    notifications: state.getIn(['entities', 'notifications']),
+    loading: state.getIn(['loading', 'quests']),
+    quests: state.getIn(['entities', 'quests']),
     administrate: state.getIn(['form', 'settings', 'administrate', 'value'])
   };
 }
 
-export default connect(mapStateToProps)(withRouter(NotificationsPage));
+export default connect(mapStateToProps)(withRouter(QuestsPage));

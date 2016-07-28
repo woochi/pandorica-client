@@ -1,44 +1,44 @@
 import api from 'lib/api';
-import * as ACTIONS from 'constants/notificationActionTypes';
-import Notification from 'models/notification';
+import * as ACTIONS from 'constants/questActionTypes';
+import Quest from 'models/quest';
 import {arrayOf} from 'normalizr';
 import {loadStart, loadEnd} from 'actions/loadingActions';
 import {createAction} from 'redux-actions';
 
 export function success(response) {
   return {
-    type: ACTIONS.NOTIFICATIONS_LOAD_SUCCESS,
+    type: ACTIONS.QUESTS_LOAD_SUCCESS,
     response
   };
 }
 
 export function error(response) {
   return {
-    type: ACTIONS.NOTIFICATIONS_LOAD_ERROR,
+    type: ACTIONS.QUESTS_LOAD_ERROR,
     error: response
   }
 }
 
 export function fetch() {
   return function(dispatch, getState) {
-    dispatch(loadStart('notifications'));
-    return api.getNormalized('/notifications', arrayOf(Notification))
+    dispatch(loadStart('quests'));
+    return api.getNormalized('/quests', arrayOf(Quest))
       .then((response) => {
-        dispatch(createAction('NOTIFICATIONS_LOAD_SUCCESS')(response));
+        dispatch(createAction('QUESTS_LOAD_SUCCESS')(response));
       })
       .catch((response) => {
         dispatch(error(response));
       })
       .then(() => {
-        dispatch(loadEnd('notifications'));
+        dispatch(loadEnd('quests'));
       });
   };
 }
 
 export function get(id) {
   return function(dispatch, getState) {
-    dispatch(loadStart('notifications'));
-    return api.getNormalized(`/notifications/${id}`, Notification)
+    dispatch(loadStart('quests'));
+    return api.getNormalized(`/quests/${id}`, Quest)
       .then((response) => {
         dispatch(success(response));
       })
@@ -46,7 +46,14 @@ export function get(id) {
         dispatch(error(response));
       })
       .then(() => {
-        dispatch(loadEnd('notifications'));
+        dispatch(loadEnd('quests'));
       });
   }
 }
+
+export const submit = createAction('QUEST_SUBMIT', (id, code) => {
+  if (!code) {
+    return Promise.reject('Enter quest code.');
+  }
+  return api.postNormalized(`/quests/${id}`, {code}, Quest);
+});

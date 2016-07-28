@@ -9,22 +9,17 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import Loader from 'components/Loader';
 import GreenButton from 'components/GreenButton';
+import {Map} from 'immutable';
 
 class TaskSuccessPage extends React.Component {
-  componentWillMount() {
-    if (!this.props.task) {
-      this.props.router.push('/app/notifications');
-    }
-  }
-
   render() {
     return (
       <Page>
         <Loader loading={this.props.loading}>
           <Center>
-            <PointDisplay points={this.props.task.points}/>
+            <PointDisplay points={this.props.task.get('points')}/>
             <Title>Magnificent!</Title>
-            <Paragraph>You have successfully completed the quest <strong>&ldquo;{this.props.task.name}&rdquo;</strong>!</Paragraph>
+            <Paragraph>You have successfully completed the quest!</Paragraph>
             <GreenButton primary={true} onClick={this.continue}>Get the next quest</GreenButton>
           </Center>
         </Loader>
@@ -33,16 +28,16 @@ class TaskSuccessPage extends React.Component {
   }
 
   continue = () => {
-    const nextPathname = _.get(this.props, ['location', 'state', 'nextPathName']) || '/app/notifications';
+    const nextPathname = _.get(this.props, ['location', 'state', 'nextPathName']) || '/app/quests';
     this.props.router.push(nextPathname);
   }
 }
 
 function mapStateToProps(state, router) {
-  const task = state.getIn(['tasks', 'entities', router.params.id]);
+  const mission = state.getIn(['entities', 'tasks', router.params.id]) || state.getIn(['entities', 'quests', router.params.id]) || new Map();
   return {
-    loading: !task,
-    task: task
+    loading: !mission,
+    task: mission
   };
 }
 

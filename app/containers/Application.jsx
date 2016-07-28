@@ -53,8 +53,8 @@ const profileLink = {
 }
 const pageLinks = [
   {name: 'Leaderboard', url: '/app/home', icon: 'whatshot'},
-  {name: 'Notifications', url: '/app/notifications', icon: 'notifications'},
-  {name: 'Quests', url: '/app/tasks', icon: 'assignment_turned_in'}
+  {name: 'Quests', url: '/app/quests', icon: 'assignment'},
+  {name: 'Enter Code', url: '/app/tasks', icon: 'check_circle'}
 ];
 const chatLinks = [
   {name: 'Global', url: '/app/chats/neutral', icon: 'public'},
@@ -201,10 +201,10 @@ export default class Application extends React.Component {
     } else {
       currentValue = this.props.location.pathname.split('/').slice(0, 3).join('/');
     }
-    let links = [];
-    links = links.concat(pageLinks.map(this.renderDesktopNavLink));
-    links = links.concat([<Divider/>, <Subheader style={subheaderStyle}>Discussions</Subheader>]);
-    links = links.concat(chatLinks.map(this.renderDesktopNavLink));
+    let links = []
+      .concat(pageLinks.map(this.renderDesktopNavLink))
+      .concat([<Divider/>, <Subheader style={subheaderStyle}>Discussions</Subheader>])
+      .concat(chatLinks.map(this.renderDesktopNavLink));
     return (
       <Drawer {...leftNavProps}>
         <SelectableList value={currentValue}>

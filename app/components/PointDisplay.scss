@@ -24,7 +24,6 @@
 
 .counter {
   @include font-size(28px, 1.5);
-  color: $white;
   display: block;
   text-indent: -14px;
 }

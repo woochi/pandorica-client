@@ -13,16 +13,15 @@ import Site from 'containers/Site';
 import Application from 'containers/Application';
 import HomePage from 'containers/HomePage';
 import TasksPage from 'containers/TasksPage';
-import NotificationsPage from 'containers/NotificationsPage';
+import QuestsPage from 'containers/QuestsPage';
 import NotFoundPage from 'containers/NotFoundPage';
 import LoginPage from 'containers/LoginPage';
 import SignupPage from 'containers/SignupPage';
-import NotificationPage from 'containers/NotificationPage';
+import QuestPage from 'containers/QuestPage';
 import TaskSuccessPage from 'containers/TaskSuccessPage';
 import IntroPage from 'containers/IntroPage';
 import FactionSelectPage from 'containers/FactionSelectPage';
 import ProfilePage from 'containers/ProfilePage';
-import NotificationCreatePage from 'containers/NotificationCreatePage';
 import ChatPage from 'containers/ChatPage';
 import ChatListPage from 'containers/ChatListPage';
 
@@ -49,8 +48,11 @@ function checkAuth(nextState, replace) {
 }
 
 function test(nextState, replace) {
-  if (!store.getState().getIn(['tasks', 'entities', nextState.params.id])) {
-    replace('/app/notifications');
+  const id = nextState.params.id;
+  const state = store.getState();
+  const mission = state.getIn(['entities', 'tasks', id]) || state.getIn(['entities', 'quests', id])
+  if (!mission) {
+    replace('/app/quests');
   }
 }
 
@@ -96,8 +98,9 @@ render((
           <Route path="app" component={Application} onEnter={requireAuth}>
             <IndexRedirect to="home"/>
             <Route path="home" component={HomePage}/>
-            <Route path="notifications" component={NotificationsPage}/>
-            <Route path="notifications/:id" component={NotificationPage}/>
+            <Route path="quests" component={QuestsPage}/>
+            <Route path="quests/:id" component={QuestPage}/>
+            <Route path="quests/:id/success" component={TaskSuccessPage} onEnter={test}/>
             <Route path="tasks" component={TasksPage}/>
             <Route path="tasks/:id/success" component={TaskSuccessPage} onEnter={test}/>
             <Route path="chats" component={ChatListPage}/>

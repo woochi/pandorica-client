@@ -69,23 +69,9 @@ export function get(id) {
   }
 }
 
-export function submit(code) {
-  return function(dispatch, getState) {
-    const state = getState();
-    if (!!code) {
-      dispatch(loadStart());
-      return api.post(`/me/tasks`, {code: code})
-        .then((response) => {
-          dispatch(success(response));
-          dispatch(loadEnd());
-          return response;
-        })
-        .catch((err) => {
-          dispatch(error(err));
-          dispatch(loadEnd());
-          throw err;
-        });
-    }
+export const submit = createAction('TASK_SUBMIT', (code) => {
+  if (!code) {
     return Promise.reject(new Error('Type in the quest code'));
   }
-}
+  return api.postNormalized(`/me/tasks`, {code}, Task);
+});

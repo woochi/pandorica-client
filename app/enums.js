@@ -1,3 +1,3 @@
-export const NOTIFICATION_TYPES = {
+export const QUEST_TYPES = {
   TASK: 'task'
 };

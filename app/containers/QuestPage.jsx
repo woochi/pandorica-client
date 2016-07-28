@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Page from 'components/Page';
-import * as notificationActions from 'actions/notificationActions';
+import * as questActions from 'actions/questActions';
 import Title from 'components/Title';
 import Paragraph from 'components/Paragraph';
 import Center from 'components/Center';
@@ -11,13 +11,14 @@ import * as taskActions from 'actions/taskActions';
 import TaskCodeForm from 'components/TaskCodeForm';
 import _ from 'lodash';
 import {error} from 'actions/errorActions';
-import Notification from 'models/notification';
+import Quest from 'models/quest';
 import {getNormalized} from 'actions/apiActions';
+import {FontIcon} from 'material-ui';
 
-class NotificationPage extends React.Component {
+class QuestPage extends React.Component {
 
   componentDidMount() {
-    this.props.dispatch(getNormalized(`/notifications/${this.props.params.id}`, Notification));
+    this.props.dispatch(getNormalized(`/quests/${this.props.params.id}`, Quest));
   }
 
   render() {
@@ -36,11 +37,11 @@ class NotificationPage extends React.Component {
     } else {
       return (
         <Center>
-          <Title>{this.props.notification.get('title')}</Title>
-          <Paragraph>{this.props.notification.get('message')}</Paragraph>
+          <Title>{this.props.quest.get('title')}</Title>
+          <Paragraph>{this.props.quest.get('description')}</Paragraph>
           {this.getTaskContent()}
           <Paragraph>
-            <GreyLink to="/app/notifications">Go back to notifications</GreyLink>
+            <GreyLink to="/app/quests">Go back to quests</GreyLink>
           </Paragraph>
         </Center>
       );
@@ -48,16 +49,19 @@ class NotificationPage extends React.Component {
   }
 
   getTaskContent = () => {
-    if (this.props.notification.getIn(['task', 'completed'])) {
-      return <p className="green">You have already completed this task</p>;
+    if (this.props.quest.get('completed')) {
+      return <div className="green">
+        You have already completed this task.
+      </div>;
     } else {
       return <TaskCodeForm onSubmit={this.checkCode}/>;
     }
   }
 
   checkCode = (code) => {
-    this.props.dispatch(taskActions.submit(code)).then(() => {
-      this.props.router.push(`/app/tasks/${this.props.notification.task._id}/success`);
+    const questId = this.props.quest.get('_id');
+    this.props.dispatch(questActions.submit(questId, code)).then(() => {
+      this.props.router.push(`/app/quests/${questId}/success`);
     }).catch((err) => {
       this.props.dispatch(error(err));
     });
@@ -65,11 +69,11 @@ class NotificationPage extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-  const notification = state.getIn(['entities', 'notifications', props.params.id]);
+  const quest = state.getIn(['entities', 'quests', props.params.id]);
   return {
-    loading: !notification,
-    notification: notification
+    loading: !quest,
+    quest: quest
   };
 }
 
-export default connect(mapStateToProps)(withRouter(NotificationPage));
+export default connect(mapStateToProps)(withRouter(QuestPage));

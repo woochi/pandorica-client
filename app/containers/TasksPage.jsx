@@ -36,9 +36,9 @@ class TasksPage extends React.Component {
   }
 
   checkCode = (code) => {
-    this.props.taskActions.submit(code).then((task) => {
+    this.props.taskActions.submit(code).then((data) => {
       this.props.router.push({
-        pathname: `/app/tasks/${task._id}/success`,
+        pathname: `/app/tasks/${data.value.result}/success`,
         state: {nextPathName: '/app/tasks'}
       });
     }).catch((error) => {
