@@ -78,7 +78,7 @@ class FactionSelectPage extends React.Component {
                     </div>
                     <div className={styles.CardTitle}>{card.title}</div>
                     <Subtitle className={styles.CardSubtitle}>{card.subtitle}</Subtitle>
-                    <GreenButton onClick={() => this.submit(card.value)}>{card.buttonLabel}</GreenButton>
+                    <GreenButton onClick={this.props.handleSubmit}>{card.buttonLabel}</GreenButton>
                   </Center>
                 </SlideDeck.Slide>
               )}
