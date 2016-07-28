@@ -1,15 +1,10 @@
 import styles from './Subtitle.scss';
 
 class Subtitle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.displayName = 'Subtitle';
-  }
-
   render() {
-    return <div className={styles.Subtitle}>{this.props.children}</div>;
+    console.log('PROPS', this.props);
+    return <div className={styles.Subtitle} {...this.props}>{this.props.children}</div>;
   }
 }
 
 export default Subtitle;
-

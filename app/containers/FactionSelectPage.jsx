@@ -59,7 +59,7 @@ class FactionSelectPage extends React.Component {
           <div className={styles.MobileHeader}>
             <div className={styles.MobileHeaderContainer}>
               <Title style={{color: 'white'}}>Pick your side</Title>
-              <Subtitle>You will be contributing points towards the victory of your own team.</Subtitle>
+              <Subtitle style={{color: '#cdcdcd'}}>You will be contributing points towards the victory of your own team.</Subtitle>
             </div>
           </div>
           <div className={styles.MobileContent}>
@@ -77,7 +77,7 @@ class FactionSelectPage extends React.Component {
                       <img src={card.image} className={styles.CardImage} width="100%"/>
                     </div>
                     <div className={styles.CardTitle}>{card.title}</div>
-                    <Subtitle className={styles.CardSubtitle}>{card.subtitle}</Subtitle>
+                    <Subtitle style={{color: '#eee'}} className={styles.CardSubtitle}>{card.subtitle}</Subtitle>
                     <GreenButton onClick={this.props.handleSubmit}>{card.buttonLabel}</GreenButton>
                   </Center>
                 </SlideDeck.Slide>
@@ -110,7 +110,7 @@ class FactionSelectPage extends React.Component {
         <Center>
           <div className={styles.Header}>
             <Title style={{color: 'white'}}>Pick your side</Title>
-            <Subtitle>You will be contributing points towards the victory of your own team.</Subtitle>
+            <Subtitle style={{color: '#eee'}}>You will be contributing points towards the victory of your own team.</Subtitle>
           </div>
           <StaggeredMotion defaultStyles={defaultStyles} styles={calculateStyle}>
             {interpolatingStyles =>

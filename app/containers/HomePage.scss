@@ -1,0 +1,69 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+.statusDisplay {
+  position: relative;
+  width: rhythm(12);
+  height: rhythm(12);
+  margin: 0 auto rhythm(-2) auto;
+}
+
+.progressContainer {
+  position: absolute;
+  width: rhythm(12);
+  height: rhythm(12);
+}
+
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.progressBackground {
+  composes: progress;
+
+  circle {
+    stroke-width: 6 !important;
+    stroke: $grey1 !important;
+  }
+}
+
+.chaosProgress {
+  composes: progress;
+  transform: rotate(-90deg);
+
+  circle {
+    stroke: $red !important;
+  }
+}
+
+.orderProgress {
+  composes: progress;
+}
+
+.pointsContainer {
+  position: absolute;
+  top: rhythm(2.5);
+  left: rhythm(3.5);
+  right: rhythm(3.5);
+}
+
+.points {
+  @include font-size(16px);
+  margin: rhythm(0.25) 0;
+}
+
+.orderPoints {
+  composes: points;
+}
+
+.chaosPoints {
+  composes: points;
+}
+
+.pointsLabel {
+  @include font-size(10px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

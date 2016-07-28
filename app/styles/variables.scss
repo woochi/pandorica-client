@@ -8,6 +8,7 @@ $green7: darken($green5, 20%);
 
 $green: $green5;
 $cyan: #00bcd4;
+$red: red;
 
 $white1: rgba($white, 0.1);
 $white2: rgba($white, 0.2);
@@ -47,6 +48,7 @@ $base-font-weight: $font-weight-normal;
 $base-font-family: $font-family-normal, Roboto, Helvetica, Arial, sans-serif;
 
 $base-font-color: $grey7;
+$font-color-alt: $grey5;
 
 $link-color: $base-font-color;
 $link-color-hover: $base-font-color;

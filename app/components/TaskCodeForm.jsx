@@ -16,7 +16,7 @@ class TaskCodeForm extends React.Component {
         <Fieldset>
           <TextField
             fullWidth={true}
-            autoFocus={isMobile()}
+            autoFocus={!isMobile()}
             placeholder="Type in the quest code"
             type="text"
             value={this.state.value}
