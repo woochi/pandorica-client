@@ -120,7 +120,7 @@ class FactionSelectPage extends React.Component {
                     key={i}
                     image={card.image}
                     selected={card.value === faction.value}
-                    onSelect={this.submit}
+                    onSelect={() => this.submit(card.value)}
                     {...faction}
                     value={card.value}
                     onMouseOver={() => this.select(card.value)}
@@ -140,7 +140,9 @@ class FactionSelectPage extends React.Component {
     this.props.fields.faction.onChange(value);
   }
 
-  submit = () => {
+  submit = (faction) => {
+    console.log('SUBMIT', faction);
+    this.select(faction);
     this.props.router.push('/signup/complete');
   }
 

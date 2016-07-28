@@ -16,6 +16,7 @@ const API_URL = getAPIUrl();
 function formatOptions(options) {
   var defaults = {
     credentials: 'same-origin',
+    mode: 'cors',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

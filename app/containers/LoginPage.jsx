@@ -7,7 +7,7 @@ import Center from 'components/Center';
 import Subtitle from 'components/Subtitle';
 import Logo from 'components/Logo';
 import Paragraph from 'components/Paragraph';
-import GreyLink from 'components/GreyLink';
+import WhiteLink from 'components/WhiteLink';
 
 class LoginPage extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class LoginPage extends React.Component {
           <Title style={{color: 'white'}}>Welcome back</Title>
           <Subtitle>The fight still continues. Log in and get back to your quests.</Subtitle>
           <LoginForm onSubmit={this.onSubmit}></LoginForm>
-          <Paragraph><GreyLink to="/signup">Don't have an account yet? Sign up.</GreyLink></Paragraph>
+          <Paragraph><WhiteLink to="/signup">Don't have an account yet? Sign up.</WhiteLink></Paragraph>
         </Center>
         <FooterLink to="/signup"></FooterLink>
       </Page>

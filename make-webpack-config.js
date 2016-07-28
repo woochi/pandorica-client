@@ -60,7 +60,7 @@ module.exports = function (options) {
       ])
 		},
   	entry: {
-	    app: ["./app/main.jsx"]
+	    app: ['babel-polyfill', './app/main.jsx']
 	  },
 	  output: {
 	    path: path.resolve(__dirname, "build"),

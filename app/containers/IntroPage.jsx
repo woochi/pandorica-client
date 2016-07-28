@@ -7,7 +7,7 @@ import SuperTitle from 'components/SuperTitle';
 import HeroTitle from 'components/HeroTitle';
 import PrimaryButton from 'components/PrimaryButton';
 import Logo from 'components/Logo';
-import GreyLink from 'components/GreyLink';
+import WhiteLink from 'components/WhiteLink';
 
 class IntroPage extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class IntroPage extends React.Component {
               Join the game
             </PrimaryButton>
           </Link>
-          <Paragraph><GreyLink to="login">Already have an account? Sign in.</GreyLink></Paragraph>
+          <Paragraph><WhiteLink to="login">Already have an account? Sign in.</WhiteLink></Paragraph>
         </Center>
       </Page>
     );

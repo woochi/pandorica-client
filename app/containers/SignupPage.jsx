@@ -5,7 +5,7 @@ import Title from 'components/Title';
 import api from 'lib/api';
 import { browserHistory } from 'react-router'
 import {PropTypes} from 'react';
-import GreyLink from 'components/GreyLink';
+import WhiteLink from 'components/WhiteLink';
 import Center from 'components/Center';
 import Subtitle from 'components/Subtitle';
 import Logo from 'components/Logo';
@@ -24,7 +24,7 @@ class SignupPage extends React.Component {
           <Title style={{color: 'white'}}>You are joining the ranks of {humanizeFaction(faction)}</Title>
           <Subtitle>Your email will only be used for identification. It will not be visible to other users or staff.</Subtitle>
           <SignupForm onSubmit={this.onSubmit}></SignupForm>
-          <Paragraph><GreyLink to="/login">Already have an account? Log in.</GreyLink></Paragraph>
+          <Paragraph><WhiteLink to="/login">Already have an account? Log in.</WhiteLink></Paragraph>
         </Center>
       </Page>
     );

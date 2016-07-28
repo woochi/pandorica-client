@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, NotFoundRoute, Link, browserHistory, IndexRedirect, IndexPath, Redirect } from 'react-router';
