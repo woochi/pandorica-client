@@ -24,7 +24,7 @@ import {FontIcon} from 'material-ui';
 const md = new MobileDetect(window.navigator.userAgent);
 const isMobile = !!md.mobile();
 
-export const fields = ['faction'];
+export const fields = ['name', 'email', 'password', 'faction'];
 
 class FactionSelectPage extends React.Component {
   render() {
@@ -78,7 +78,7 @@ class FactionSelectPage extends React.Component {
                     </div>
                     <div className={styles.CardTitle}>{card.title}</div>
                     <Subtitle className={styles.CardSubtitle}>{card.subtitle}</Subtitle>
-                    <GreenButton onClick={this.submitMobile.bind(card.value)}>{card.buttonLabel}</GreenButton>
+                    <GreenButton onClick={() => this.submit(card.value)}>{card.buttonLabel}</GreenButton>
                   </Center>
                 </SlideDeck.Slide>
               )}
@@ -105,6 +105,7 @@ class FactionSelectPage extends React.Component {
       const calculateStyle = previousStyles => previousStyles.map((_, i) => {
         return i === 0 ? {offset: spring(initialOffset)} : {offset: spring(previousStyles[i - 1].offset)};
       });
+
       return (
         <Center>
           <div className={styles.Header}>
@@ -120,7 +121,7 @@ class FactionSelectPage extends React.Component {
                     key={i}
                     image={card.image}
                     selected={card.value === faction.value}
-                    onSelect={() => this.submit(card.value)}
+                    onSelect={this.props.handleSubmit}
                     {...faction}
                     value={card.value}
                     onMouseOver={() => this.select(card.value)}
@@ -137,29 +138,26 @@ class FactionSelectPage extends React.Component {
   }
 
   select = (value) => {
-    this.props.fields.faction.onChange(value);
-  }
-
-  submit = (faction) => {
-    console.log('SUBMIT', faction);
-    this.select(faction);
-    this.props.router.push('/signup/complete');
-  }
-
-  submitMobile = (event) => {
-    this.submit();
+    if (this.props.fields.faction.value !== value) {
+      this.props.fields.faction.onChange(value);
+    }
   }
 }
 
-export default reduxForm({
+export default withRouter(reduxForm({
   form: 'signup',
   fields,
   getFormState,
-  destroyOnUnmount: false
-}, (state) => {
-  return {
-    initialValues: {
-      faction: 'NEUTRAL'
-    }
-  };
-})(withRouter(FactionSelectPage));
+  destroyOnUnmount: false,
+  initialValues: {
+    faction: 'NEUTRAL'
+  },
+  overwriteOnInitialValuesChange: false
+}, null, null, (state, dispatch, props) => {
+  return {...state, ...dispatch, ...props, onSubmit: (values) => {
+    props.router.push({
+      pathname: '/signup/complete',
+      query: {faction: values.faction}
+    });
+  }};
+})(FactionSelectPage));

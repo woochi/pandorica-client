@@ -56,13 +56,9 @@ function test(nextState, replace) {
 }
 
 function checkFactionSelected(nextState, replace) {
-  if (!store.getState().getIn(['form', 'signup', 'faction', 'value'])) {
+  if (!nextState.location.query.faction) {
     replace('/signup/faction');
   }
-}
-
-function requireAdmin(nextState) {
-  // TODO
 }
 
 const muiTheme = getMuiTheme({

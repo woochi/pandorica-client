@@ -3,7 +3,7 @@ import SignupForm from 'containers/SignupForm';
 import {Link} from 'react-router';
 import Title from 'components/Title';
 import api from 'lib/api';
-import { browserHistory } from 'react-router'
+import { browserHistory, withRouter } from 'react-router'
 import {PropTypes} from 'react';
 import WhiteLink from 'components/WhiteLink';
 import Center from 'components/Center';
@@ -15,13 +15,11 @@ import Paragraph from 'components/Paragraph';
 
 class SignupPage extends React.Component {
   render() {
-    const faction = store.getState().getIn(['form', 'signup', 'faction', 'value']);
-    console.log('SIGNUP PAGE', faction);
     return (
       <Page>
         <Center>
           <Logo/>
-          <Title style={{color: 'white'}}>You are joining the ranks of {humanizeFaction(faction)}</Title>
+          <Title style={{color: 'white'}}>You are joining the ranks of {humanizeFaction(this.props.location.query.faction)}</Title>
           <Subtitle>Your email will only be used for identification. It will not be visible to other users or staff.</Subtitle>
           <SignupForm onSubmit={this.onSubmit}></SignupForm>
           <Paragraph><WhiteLink to="/login">Already have an account? Log in.</WhiteLink></Paragraph>
@@ -31,7 +29,8 @@ class SignupPage extends React.Component {
   }
 
   onSubmit = (values) => {
-    return api.signUp(values).then((response) => {
+    const faction = this.props.location.query.faction;
+    return api.signUp({...values, faction}).then((response) => {
       this.props.history.replace('/app');
     }).catch((error) => {
       console.log(error);
@@ -39,4 +38,4 @@ class SignupPage extends React.Component {
   }
 }
 
-export default SignupPage;
+export default withRouter(SignupPage);

@@ -31,15 +31,12 @@ class SignupForm extends React.Component {
   componentDidMount() {
     this.refs.name.focus();
   }
-
-  handleChange = (event, index, value) => {
-    this.props.fields.faction.onChange(value);
-  }
 }
 
 export default reduxForm({
   form: 'signup',
   fields,
   getFormState,
-  destroyOnUnmount: false
+  destroyOnUnmount: false,
+  overwriteOnInitialValuesChange: false
 })(SignupForm);
