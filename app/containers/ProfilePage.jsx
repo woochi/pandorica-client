@@ -16,6 +16,9 @@ import {update as updateUser} from 'actions/userActions';
 import store from 'store';
 import UserDetail from 'components/UserDetail';
 import styles from './ProfilePage.scss';
+import GreyLink from 'components/GreyLink';
+import {withRouter} from 'react-router';
+import {logOut} from 'lib/api';
 
 class SettingsPage extends React.Component {
   render() {
@@ -49,6 +52,10 @@ class SettingsPage extends React.Component {
           <Fieldset>
             <RaisedButton fullWidth={true} primary={true} label="Save" onClick={handleSubmit} disabled={submitting}/>
           </Fieldset>
+          <Fieldset>
+            <Divider/>
+            <a onClick={() => logOut().then(() => {this.props.router.push('/')})}>Sign out</a>
+          </Fieldset>
         </Center>
       </Page>
     );
@@ -66,8 +73,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default reduxForm({
+export default withRouter(reduxForm({
   form: 'profile',
   fields: ['name', 'email'],
   getFormState
-}, mapStateToProps)(SettingsPage);
+}, mapStateToProps)(SettingsPage));
