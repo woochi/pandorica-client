@@ -34,7 +34,7 @@ class SignupPage extends React.Component {
     return api.signUp({...values, faction}).then((response) => {
       this.props.history.replace('/app');
     }).catch((error) => {
-      console.log(error);
+      window.alert(error.message);
     });
   }
 }
