@@ -19,8 +19,13 @@ import styles from './ProfilePage.scss';
 import GreyLink from 'components/GreyLink';
 import {withRouter} from 'react-router';
 import {logOut} from 'lib/api';
+import {fetch as fetchUser} from 'actions/userActions';
 
 class SettingsPage extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(fetchUser());
+  }
+
   render() {
     const {fields, submitting, handleSubmit, user} = this.props;
 
@@ -29,10 +34,12 @@ class SettingsPage extends React.Component {
         <Center>
           <Fieldset>
             <table className={styles.userDetailTable}>
-              <tr>
-                <td><UserDetail value={`${user.get('completedQuests')} / 230`} label="quests completed"/></td>
-                <td><UserDetail value={user.get('points')} label="points gathered"/></td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td><UserDetail value={`${user.get('completedQuests')} / 230`} label="quests completed"/></td>
+                  <td><UserDetail value={user.get('points')} label="points gathered"/></td>
+                </tr>
+              </tbody>
             </table>
           </Fieldset>
           <Fieldset>
