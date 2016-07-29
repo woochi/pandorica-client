@@ -17,6 +17,35 @@ import Title from 'components/Title';
 import Paragraph from 'components/Paragraph';
 import PrimaryButton from 'components/PrimaryButton';
 import {FontIcon} from 'material-ui';
+import colors from 'lib/colors';
+
+function getAvatarForQuest(quest) {
+  if (quest.get('completed')) {
+    return <Avatar icon={getIconForQuest(quest)} backgroundColor={colors.green}/>;
+  } else {
+    return <Avatar icon={getIconForQuest(quest)}/>;
+  }
+}
+
+function getIconForQuest(quest) {
+  if (quest.get('completed')) {
+    return <FontIcon className="material-icons">check</FontIcon>;
+  } else {
+    return <FontIcon className="material-icons">{getIconNameForQuest(quest)}</FontIcon>;
+  }
+}
+
+function getIconNameForQuest(quest) {
+  const faction = quest.get('faction');
+
+  if (faction === 'ORDER') {
+    return 'security';
+  } else if (faction === 'CHAOS') {
+    return 'flare';
+  } else {
+    return 'public';
+  }
+}
 
 class QuestsPage extends React.Component {
   constructor() {
@@ -68,7 +97,7 @@ class QuestsPage extends React.Component {
     quests.forEach((quest, id) => {
       items.push(<ListItem
         key={id}
-        leftAvatar={<Avatar/>}
+        leftAvatar={getAvatarForQuest(quest)}
         primaryText={`${quest.get('title')}`}
         secondaryText={quest.get('description')}
         onClick={this.openQuest.bind(this, quest)}>

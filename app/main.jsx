@@ -23,6 +23,7 @@ import FactionSelectPage from 'containers/FactionSelectPage';
 import ProfilePage from 'containers/ProfilePage';
 import ChatPage from 'containers/ChatPage';
 import ChatListPage from 'containers/ChatListPage';
+import colors from 'lib/colors';
 
 import 'styles/common.scss';
 
@@ -67,7 +68,7 @@ function checkFactionSelected(nextState, replace) {
 const muiTheme = getMuiTheme({
   fontFamily: 'Avenir',
   palette: {
-    primary1Color: '#67d18a',
+    primary1Color: colors.green,
     textColor: '#333'
   },
   button: {

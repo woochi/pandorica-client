@@ -14,13 +14,13 @@ import {error} from 'actions/errorActions';
 import Quest from 'models/quest';
 import {getNormalized} from 'actions/apiActions';
 import {FontIcon} from 'material-ui';
+import colors from 'lib/colors';
 
 class QuestPage extends React.Component {
 
   componentDidMount() {
     const codeParam = this.props.location.query.code;
     if (codeParam) {
-      console.log('CHECK CODE', codeParam);
       this.checkCode(codeParam);
     } else {
       this.props.dispatch(getNormalized(`/quests/${this.props.params.id}`, Quest));
@@ -41,10 +41,13 @@ class QuestPage extends React.Component {
     if (this.props.loading) {
       return <div/>;
     } else {
+      const {quest} = this.props;
       return (
         <Center>
-          <Title>{this.props.quest.get('title')}</Title>
-          <Paragraph>{this.props.quest.get('description')}</Paragraph>
+          {quest.get('completed') &&
+            <FontIcon className="material-icons" color={colors.green}>check_circle</FontIcon>}
+          <Title>{quest.get('title')}</Title>
+          <Paragraph>{quest.get('description')}</Paragraph>
           {this.getTaskContent()}
           <Paragraph>
             <GreyLink to="/app/quests">Go back to quests</GreyLink>
