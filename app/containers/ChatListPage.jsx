@@ -17,6 +17,7 @@ class ChatListPage extends React.Component {
         {_.flatten(chats.map((chat) => (
           [
             <ListItem
+              key={chat.label}
               primaryText={chat.label}
               secondaryText={chat.description}
               onClick={() => this.props.router.push(chat.url)}

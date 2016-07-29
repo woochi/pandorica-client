@@ -62,6 +62,14 @@ const chatLinks = [
   {name: 'Chaos', url: '/app/chats/chaos', icon: 'flare'}
 ];
 
+function humanizeChatName(name) {
+  console.log('NAME', name);
+  if (name === 'neutral') {
+    return 'Global';
+  }
+  return _.upperFirst(name);
+}
+
 export default class Application extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchUser());
@@ -91,7 +99,7 @@ export default class Application extends React.Component {
                 <FontIcon className="material-icons" onClick={() => this.props.router.push('/app/chats')}>keyboard_arrow_left</FontIcon>
               </ToolbarGroup>
               <ToolbarGroup>
-                <ToolbarTitle text={_.upperFirst(_.last(this.props.location.pathname.split('/')))}/>
+                <ToolbarTitle text={humanizeChatName(_.last(this.props.location.pathname.split('/')))}/>
               </ToolbarGroup>
             </Toolbar>}
           <div className={styles.Content} style={contentStyle}>
