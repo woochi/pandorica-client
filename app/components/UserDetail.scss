@@ -1,0 +1,13 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+.value {
+  @include font-size(22px);
+  color: $green;
+}
+
+.label {
+  @include font-size(10px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

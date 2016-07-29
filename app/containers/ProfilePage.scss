@@ -1,0 +1,17 @@
+@import 'variables';
+@import 'vertical-rhythm';
+
+.userDetailTable {
+  width: 100%;
+  padding-bottom: rhythm(1, $offset: 1px);
+  border-collapse: collapse;
+
+  td {
+    padding: 0;
+    border-left: 1px solid $grey1;
+
+    &:first-child {
+      border-left: none;
+    }
+  }
+}

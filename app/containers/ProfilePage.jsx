@@ -14,16 +14,24 @@ import {reduxForm} from 'redux-form';
 import {getFormState} from 'lib/immutableForm';
 import {update as updateUser} from 'actions/userActions';
 import store from 'store';
+import UserDetail from 'components/UserDetail';
+import styles from './ProfilePage.scss';
 
 class SettingsPage extends React.Component {
   render() {
-    const {fields, submitting, handleSubmit} = this.props;
+    const {fields, submitting, handleSubmit, user} = this.props;
 
     return (
       <Page>
         <Center>
-          <UserAvatar size={64} user={this.props.user}/>
-          <Title>Edit profile</Title>
+          <Fieldset>
+            <table className={styles.userDetailTable}>
+              <tr>
+                <td><UserDetail value={`${user.get('completedQuests')} / 230`} label="quests completed"/></td>
+                <td><UserDetail value={user.get('points')} label="points gathered"/></td>
+              </tr>
+            </table>
+          </Fieldset>
           <Fieldset>
             <TextField
               floatingLabelFixed={true}
