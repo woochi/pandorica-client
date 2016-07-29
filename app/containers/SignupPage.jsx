@@ -15,6 +15,7 @@ import Paragraph from 'components/Paragraph';
 
 class SignupPage extends React.Component {
   render() {
+    console.log('SIGNUP', this.props);
     return (
       <Page>
         <Center>

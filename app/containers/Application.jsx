@@ -63,13 +63,6 @@ const chatLinks = [
 ];
 
 export default class Application extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      administrate: false
-    };
-  }
-
   componentDidMount() {
     this.props.dispatch(fetchUser());
   }
@@ -78,7 +71,7 @@ export default class Application extends React.Component {
     const isMobileDevice = isMobile();
     const contentStyle = {};
     if (isMobileDevice && this.isInChat()) {
-      contentStyle['top'] = 49;
+      contentStyle['top'] = 56;
     } else if (isMobileDevice) {
       contentStyle['bottom'] = 49;
     } else {
@@ -220,7 +213,12 @@ export default class Application extends React.Component {
         </SelectableList>
         <div className={styles.DrawerFooter}>
           <Divider/>
-          <ListItem onTouchTap={this.logout} style={menuItemStyle} leftIcon={<FontIcon className="material-icons" style={menuIconStyle}>lock</FontIcon>}>Sign out</ListItem>
+          <ListItem
+            onClick={this.logout}
+            style={menuItemStyle}
+            leftIcon={<FontIcon className="material-icons" style={menuIconStyle}>lock</FontIcon>}>
+            Sign out
+          </ListItem>
         </div>
       </Drawer>
     );

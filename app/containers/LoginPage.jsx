@@ -8,9 +8,11 @@ import Subtitle from 'components/Subtitle';
 import Logo from 'components/Logo';
 import Paragraph from 'components/Paragraph';
 import WhiteLink from 'components/WhiteLink';
+import {withRouter} from 'react-router';
 
 class LoginPage extends React.Component {
   render() {
+    console.log(this.props);
     return (
       <Page>
         <Center>
@@ -27,7 +29,16 @@ class LoginPage extends React.Component {
 
   onSubmit = (values) => {
     api.logIn(values).then(() => {
-      this.props.history.replace('/app');
+      const {state: {nextPathname, nextQuery}} = this.props.location;
+      console.log(nextPathname, nextQuery);
+      if (nextPathname) {
+        this.props.router.replace({
+          pathname: nextPathname,
+          query: nextQuery
+        });
+        return;
+      }
+      this.props.router.replace('/app');
     }).catch((error) => {
       // TODO: Error handling
       console.log(error);
@@ -35,4 +46,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

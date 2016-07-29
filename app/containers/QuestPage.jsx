@@ -18,7 +18,13 @@ import {FontIcon} from 'material-ui';
 class QuestPage extends React.Component {
 
   componentDidMount() {
-    this.props.dispatch(getNormalized(`/quests/${this.props.params.id}`, Quest));
+    const codeParam = this.props.location.query.code;
+    if (codeParam) {
+      console.log('CHECK CODE', codeParam);
+      this.checkCode(codeParam);
+    } else {
+      this.props.dispatch(getNormalized(`/quests/${this.props.params.id}`, Quest));
+    }
   }
 
   render() {
@@ -59,7 +65,7 @@ class QuestPage extends React.Component {
   }
 
   checkCode = (code) => {
-    const questId = this.props.quest.get('_id');
+    const questId = this.props.params.id;
     this.props.dispatch(questActions.submit(questId, code)).then(() => {
       this.props.router.push(`/app/quests/${questId}/success`);
     }).catch((err) => {

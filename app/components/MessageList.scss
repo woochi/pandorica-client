@@ -1,7 +1,9 @@
 @import 'vertical-rhythm';
 
 .messageList {
+  width: 100%;
   padding: rhythm(1);
+  overflow: auto;
 }
 
 .messageContainer {

@@ -34,8 +34,11 @@ FastClick.attach(document.body);
 function requireAuth(nextState, replace) {
   if (!api.isLoggedIn()) {
     replace({
-      pathname: '/',
-      state: { nextPathname: nextState.location.pathname }
+      pathname: '/login',
+      state: {
+        nextPathname: nextState.location.pathname,
+        nextQuery: nextState.location.query
+      }
     });
   }
 }

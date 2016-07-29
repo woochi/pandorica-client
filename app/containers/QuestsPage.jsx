@@ -34,16 +34,14 @@ class QuestsPage extends React.Component {
 
   render() {
     return (
-      <PullToRefresh onRefresh={this.onRefresh}>
-        <Page>
-          <Loader loading={this.props.loading}>
-            <div>
-              {this.renderContent()}
-            </div>
-          </Loader>
-        </Page>
-      </PullToRefresh>
-    )
+      <Page>
+        <Loader loading={this.props.loading}>
+          <div>
+            {this.renderContent()}
+          </div>
+        </Loader>
+      </Page>
+    );
   }
 
   renderContent() {

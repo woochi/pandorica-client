@@ -19,6 +19,13 @@ import { bindActionCreators } from 'redux';
 import * as errorActions from 'actions/errorActions';
 
 class TasksPage extends React.Component {
+  componentDidMount() {
+    const codeParam = this.props.location.query.code;
+    if (codeParam) {
+      this.checkCode(codeParam);
+    }
+  }
+
   render() {
     const {
       task
