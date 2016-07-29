@@ -16,6 +16,7 @@ import Center from 'components/Center';
 import Title from 'components/Title';
 import Paragraph from 'components/Paragraph';
 import PrimaryButton from 'components/PrimaryButton';
+import {FontIcon} from 'material-ui';
 
 class QuestsPage extends React.Component {
   constructor() {
@@ -36,9 +37,7 @@ class QuestsPage extends React.Component {
     return (
       <Page>
         <Loader loading={this.props.loading}>
-          <div>
-            {this.renderContent()}
-          </div>
+          {this.renderContent()}
         </Loader>
       </Page>
     );
@@ -55,8 +54,9 @@ class QuestsPage extends React.Component {
       );
     } else {
       return <Center>
+        <FontIcon className="material-icons">assignment</FontIcon>
         <Title>No quests have been published yet.</Title>
-        <Paragraph>Stay on the lookout closer to the event start time.</Paragraph>
+        <Paragraph>Stay on the lookout closer to the event start time.<br/>New quests will be published multiple times every day.</Paragraph>
       </Center>;
     }
   }
