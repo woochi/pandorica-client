@@ -12,7 +12,6 @@ import {withRouter} from 'react-router';
 
 class LoginPage extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <Page>
         <Center>
@@ -29,8 +28,10 @@ class LoginPage extends React.Component {
 
   onSubmit = (values) => {
     api.logIn(values).then(() => {
-      const {state: {nextPathname, nextQuery}} = this.props.location;
-      console.log(nextPathname, nextQuery);
+      const routerState = this.props.location.state;
+      const nextPathname = _.get(routerState, 'nextPathname');
+      const nextQuery = _.get(routerState, 'nextQuery');
+
       if (nextPathname) {
         this.props.router.replace({
           pathname: nextPathname,
